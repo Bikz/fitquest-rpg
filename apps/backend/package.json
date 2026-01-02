@@ -1,0 +1,23 @@
+{
+  "name": "@loveleaf/backend",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "bun --watch --no-clear-screen src/index.ts",
+    "start": "bun src/index.ts",
+    "migrate": "bun scripts/migrate.ts",
+    "lint": "bunx biome check ."
+  },
+  "dependencies": {
+    "@loveleaf/types": "workspace:*",
+    "@aws-sdk/client-s3": "^3.958.0",
+    "@aws-sdk/s3-request-presigner": "^3.958.0",
+    "@hono/node-server": "^1.19.7",
+    "dotenv": "^17.2.3",
+    "hono": "^4.11.3",
+    "jose": "^6.1.3",
+    "postgres": "^3.4.7"
+  }
+}

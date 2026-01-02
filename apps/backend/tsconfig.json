@@ -1,0 +1,4 @@
+{
+  "extends": "@loveleaf/config/tsconfig-node",
+  "include": ["src"]
+}

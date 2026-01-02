@@ -1,0 +1,34 @@
+{
+  "name": "loveleaf-monorepo",
+  "private": true,
+  "packageManager": "bun@1.3.5",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev": "cd apps/mobile && bun start",
+    "dev:all": "bun scripts/dev-all.mjs",
+    "mobile:start": "cd apps/mobile && bun start",
+    "mobile:android": "cd apps/mobile && bun android",
+    "mobile:ios": "cd apps/mobile && bun ios",
+    "mobile:web": "cd apps/mobile && bun web",
+    "mobile:lint": "cd apps/mobile && bun lint",
+    "mobile:test": "cd apps/mobile && bun test",
+    "backend:dev": "cd apps/backend && bun dev",
+    "backend:start": "cd apps/backend && bun start",
+    "backend:migrate": "cd apps/backend && bun migrate",
+    "backend:lint": "cd apps/backend && bun lint",
+    "release:check": "bun scripts/release-check.mjs",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "format:check": "biome format ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.3.10",
+    "turbo": "^2.7.2"
+  },
+  "dependencies": {
+    "@clerk/clerk-expo": "^2.19.14"
+  }
+}

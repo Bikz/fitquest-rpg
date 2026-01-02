@@ -1,0 +1,18 @@
+export default {
+  primary: "#2f7d65",
+  lime: "#e6f5ea",
+  pink: "#f3a0a0",
+  brown: "#3b2e2a",
+  sky: "#e7f0ff",
+  teal: "#2e5e5a",
+  yellow: "#f1d8a8",
+  orange: "#e98c5b",
+  blue: "#2d4dba",
+  green: "#214b3e",
+  light: "#f8f5f0",
+  grey: "#6f6965",
+  greyLight: "#c9c2be",
+  input: "#efeae5",
+  selected: "#f2ece6",
+  dark: "#1e1b1a",
+};
