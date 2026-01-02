@@ -1,6 +1,7 @@
 import { useAuth, useUser } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import { useState } from "react";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import {
   ActivityIndicator,
   StyleSheet,
@@ -14,27 +15,39 @@ import { deleteUserAccount } from "@/services/api/user";
 import Colors from "@/ui/theme/colors";
 import { defaultStyles } from "@/ui/theme/styles";
 
+type DeleteFormValues = {
+  confirmation: string;
+};
+
 const DeleteAccountScreen = () => {
   const { signOut } = useAuth();
   const { user } = useUser();
   const { request } = useApiRequest();
   const router = useRouter();
-  const [confirmation, setConfirmation] = useState("");
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<DeleteFormValues>({
+    defaultValues: { confirmation: "" },
+    mode: "onChange",
+  });
+  const confirmation = useWatch({ control, name: "confirmation" }) ?? "";
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [requestError, setRequestError] = useState<string | null>(null);
 
-  const canDelete = confirmation.trim().toLowerCase() === "delete";
+  const canDelete = confirmation.trim().toLowerCase() === "delete" && isValid;
 
   const handleDelete = async () => {
-    if (!canDelete || loading) return;
+    if (loading) return;
     setLoading(true);
-    setError(null);
+    setRequestError(null);
 
     try {
       await deleteUserAccount(request);
     } catch (err) {
       const message = err instanceof Error ? err.message : "Unable to delete your account.";
-      setError(message);
+      setRequestError(message);
       setLoading(false);
       return;
     }
@@ -61,21 +74,32 @@ const DeleteAccountScreen = () => {
         This permanently deletes your data and cannot be undone. Type DELETE to confirm.
       </Text>
 
-      <TextInput
-        style={styles.input}
-        placeholder="Type DELETE to confirm"
-        placeholderTextColor={Colors.grey}
-        value={confirmation}
-        onChangeText={setConfirmation}
-        autoCapitalize="characters"
+      <Controller
+        control={control}
+        name="confirmation"
+        rules={{
+          required: "Type DELETE to confirm.",
+          validate: (value) => value.trim().toLowerCase() === "delete" || "Type DELETE to confirm.",
+        }}
+        render={({ field: { value, onChange } }) => (
+          <TextInput
+            style={[styles.input, errors.confirmation && styles.inputError]}
+            placeholder="Type DELETE to confirm"
+            placeholderTextColor={Colors.grey}
+            value={value}
+            onChangeText={onChange}
+            autoCapitalize="characters"
+          />
+        )}
       />
 
-      {error && <Text style={styles.error}>{error}</Text>}
+      {errors.confirmation && <Text style={styles.error}>{errors.confirmation.message}</Text>}
+      {requestError && <Text style={styles.error}>{requestError}</Text>}
 
       <TouchableOpacity
         style={[defaultStyles.btn, styles.deleteButton, !canDelete && styles.disabledButton]}
         disabled={!canDelete || loading}
-        onPress={handleDelete}
+        onPress={handleSubmit(handleDelete)}
       >
         {loading ? (
           <ActivityIndicator color="#fff" />
@@ -119,6 +143,10 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     fontSize: 16,
     color: Colors.dark,
+  },
+  inputError: {
+    borderWidth: 1,
+    borderColor: Colors.pink,
   },
   error: {
     color: Colors.pink,
