@@ -1,7 +1,7 @@
+import { StyleSheet, View } from "react-native";
 import AnimatedIntro from "@/features/auth/components/AnimatedIntro";
 import BottomLoginSheet from "@/features/auth/components/BottomLoginSheet";
 import Colors from "@/ui/theme/colors";
-import { StyleSheet, View } from "react-native";
 
 const WelcomeScreen = () => {
   return (

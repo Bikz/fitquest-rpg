@@ -1,7 +1,3 @@
-import DropDownMenu from "@/features/chat/components/DropdownMenu";
-import { downloadAndSaveImage, shareImage } from "@/services/media/imageActions";
-import Colors from "@/ui/theme/colors";
-import { defaultStyles } from "@/ui/theme/styles";
 import { Ionicons, Octicons } from "@expo/vector-icons";
 import {
   BottomSheetModal,
@@ -17,6 +13,10 @@ import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-nativ
 import { RootSiblingParent } from "react-native-root-siblings";
 import Toast from "react-native-root-toast";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import DropDownMenu from "@/features/chat/components/DropdownMenu";
+import { downloadAndSaveImage, shareImage } from "@/services/media/imageActions";
+import Colors from "@/ui/theme/colors";
+import { defaultStyles } from "@/ui/theme/styles";
 
 const Page = () => {
   const { url, prompt } = useLocalSearchParams<{

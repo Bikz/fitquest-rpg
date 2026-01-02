@@ -1,10 +1,10 @@
-import { FEATURES } from "@/config/features";
-import { migrateDbIfNeeded } from "@/data/storage/database";
-import Colors from "@/ui/theme/colors";
 import { Ionicons } from "@expo/vector-icons";
 import { Redirect, Stack, useRouter } from "expo-router";
 import { SQLiteProvider } from "expo-sqlite";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { FEATURES } from "@/config/features";
+import { migrateDbIfNeeded } from "@/data/storage/database";
+import Colors from "@/ui/theme/colors";
 
 const ChatLayout = () => {
   const router = useRouter();

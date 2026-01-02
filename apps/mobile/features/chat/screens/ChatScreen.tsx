@@ -1,10 +1,3 @@
-import ChatMessage from "@/features/chat/components/ChatMessage";
-import MessageIdeas from "@/features/chat/components/MessageIdeas";
-import MessageInput from "@/features/chat/components/MessageInput";
-import { addChat, addMessage, getMessages } from "@/features/chat/data/chatDatabase";
-import { type Message, Role } from "@/features/chat/models/messages";
-import { sendChat } from "@/services/ai/client";
-import { defaultStyles } from "@/ui/theme/styles";
 import { useAuth, useUser } from "@clerk/clerk-expo";
 import { FlashList } from "@shopify/flash-list";
 import { Drawer } from "expo-router/drawer";
@@ -12,6 +5,13 @@ import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
 import type { LayoutChangeEvent } from "react-native";
 import { Image, KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
+import ChatMessage from "@/features/chat/components/ChatMessage";
+import MessageIdeas from "@/features/chat/components/MessageIdeas";
+import MessageInput from "@/features/chat/components/MessageInput";
+import { addChat, addMessage, getMessages } from "@/features/chat/data/chatDatabase";
+import { type Message, Role } from "@/features/chat/models/messages";
+import { sendChat } from "@/services/ai/client";
+import { defaultStyles } from "@/ui/theme/styles";
 
 const ChatScreen: React.FC<{ id: string }> = ({ id }) => {
   const [height, setHeight] = useState(0);
@@ -75,7 +75,7 @@ const ChatScreen: React.FC<{ id: string }> = ({ id }) => {
       };
       await addMessage(db, newChatId, botMessage);
       setMessages((prev) => [...prev, botMessage]);
-    } catch (error) {
+    } catch (_error) {
       const botMessage: Message = {
         content: "Something went wrong. Try again in a moment.",
         role: Role.Bot,
@@ -103,7 +103,6 @@ const ChatScreen: React.FC<{ id: string }> = ({ id }) => {
         <FlashList
           data={messages}
           renderItem={({ item }) => <ChatMessage {...item} />}
-          estimatedItemSize={400}
           contentContainerStyle={{ paddingTop: 30, paddingBottom: 150 }}
           keyboardDismissMode="interactive"
           ListFooterComponent={working ? <ChatMessage role={Role.Bot} content="" loading /> : null}

@@ -1,6 +1,6 @@
+import type { SQLiteDatabase } from "expo-sqlite";
 import { FEATURES } from "@/config/features";
 import { migrateChatTables } from "@/features/chat/data/chatDatabase";
-import type { SQLiteDatabase } from "expo-sqlite/next";
 
 const DATABASE_VERSION = 2;
 

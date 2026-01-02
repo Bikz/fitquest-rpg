@@ -1,11 +1,11 @@
-import { useApiRequest } from "@/services/api/client";
-import { presignUpload, uploadToPresignedUrl } from "@/services/api/files";
-import Colors from "@/ui/theme/colors";
-import { defaultStyles } from "@/ui/theme/styles";
 import type { FilePresignResponse } from "@loveleaf/types";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
 import { ActivityIndicator, Alert, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { useApiRequest } from "@/services/api/client";
+import { presignUpload, uploadToPresignedUrl } from "@/services/api/files";
+import Colors from "@/ui/theme/colors";
+import { defaultStyles } from "@/ui/theme/styles";
 
 export type FileUploadButtonProps = {
   label?: string;

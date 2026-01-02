@@ -1,6 +1,6 @@
+import { StyleSheet, Text, View } from "react-native";
 import { useNetworkStatus } from "@/ui/hooks/useNetworkStatus";
 import Colors from "@/ui/theme/colors";
-import { StyleSheet, Text, View } from "react-native";
 
 const OfflineBanner = () => {
   const { isConnected, isInternetReachable } = useNetworkStatus();

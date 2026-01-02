@@ -1,6 +1,7 @@
-import Colors from "@/ui/theme/colors";
 import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
+import * as DocumentPicker from "expo-document-picker";
+import * as ImagePicker from "expo-image-picker";
 import type { FC } from "react";
 import { useCallback, useRef, useState } from "react";
 import { StyleSheet, View } from "react-native";
@@ -11,12 +12,9 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
-  withTiming,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
-import * as DocumentPicker from "expo-document-picker";
-import * as ImagePicker from "expo-image-picker";
+import Colors from "@/ui/theme/colors";
 
 export interface MessageInputProps {
   onShouldSendMessage: (message: string) => void;

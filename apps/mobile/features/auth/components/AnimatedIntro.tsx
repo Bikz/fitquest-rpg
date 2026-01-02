@@ -1,4 +1,3 @@
-import Colors from "@/ui/theme/colors";
 import { memo } from "react";
 import { StyleSheet, useWindowDimensions } from "react-native";
 import Animated, {
@@ -12,6 +11,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { ReText } from "react-native-redash";
+import Colors from "@/ui/theme/colors";
 
 const content = [
   {

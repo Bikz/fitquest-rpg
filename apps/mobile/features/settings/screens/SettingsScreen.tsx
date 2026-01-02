@@ -1,9 +1,3 @@
-import { STORAGE_KEYS } from "@/data/storage/keys";
-import { storage } from "@/data/storage/kv";
-import useAppConfig from "@/features/app/hooks/useAppConfig";
-import useAppVersionCheck from "@/features/app/hooks/useAppVersionCheck";
-import usePushNotifications from "@/features/notifications/hooks/usePushNotifications";
-import Colors from "@/ui/theme/colors";
 import { useAuth } from "@clerk/clerk-expo";
 import { useState } from "react";
 import {
@@ -16,6 +10,12 @@ import {
   View,
 } from "react-native";
 import { useMMKVBoolean } from "react-native-mmkv";
+import { STORAGE_KEYS } from "@/data/storage/keys";
+import { storage } from "@/data/storage/kv";
+import useAppConfig from "@/features/app/hooks/useAppConfig";
+import useAppVersionCheck from "@/features/app/hooks/useAppVersionCheck";
+import usePushNotifications from "@/features/notifications/hooks/usePushNotifications";
+import Colors from "@/ui/theme/colors";
 
 const SettingsScreen = () => {
   const { signOut } = useAuth();

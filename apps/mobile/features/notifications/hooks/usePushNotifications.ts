@@ -1,3 +1,7 @@
+import { useAuth } from "@clerk/clerk-expo";
+import type { PermissionStatus } from "expo-notifications";
+import { useCallback, useEffect, useState } from "react";
+import { Linking, Platform } from "react-native";
 import { useApiRequest } from "@/services/api/client";
 import { registerPushToken } from "@/services/api/notifications";
 import {
@@ -6,10 +10,6 @@ import {
   isPhysicalDevice,
   requestPermission,
 } from "@/services/notifications/expo";
-import { useAuth } from "@clerk/clerk-expo";
-import type { PermissionStatus } from "expo-notifications";
-import { useCallback, useEffect, useState } from "react";
-import { Linking, Platform } from "react-native";
 
 type PushStatus = "unknown" | "granted" | "denied";
 

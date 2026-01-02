@@ -1,19 +1,16 @@
+import type { AppVersionInfo } from "@loveleaf/types";
+import Constants from "expo-constants";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMMKVString } from "react-native-mmkv";
 import { STORAGE_KEYS } from "@/data/storage/keys";
 import { storage } from "@/data/storage/kv";
 import { fetchAppVersion } from "@/services/api/app";
 import { useApiRequest } from "@/services/api/client";
 import { compareVersions } from "@/utils/version";
-import type { AppVersionInfo } from "@loveleaf/types";
-import Constants from "expo-constants";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useMMKVString } from "react-native-mmkv";
 
 const getCurrentVersion = () => {
   return (
-    Constants.expoConfig?.version ||
-    Constants.manifest?.version ||
-    Constants.manifest2?.extra?.expoClient?.version ||
-    "0.0.0"
+    Constants.expoConfig?.version || Constants.manifest2?.extra?.expoClient?.version || "0.0.0"
   );
 };
 

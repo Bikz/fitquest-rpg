@@ -1,12 +1,12 @@
+import { useUser } from "@clerk/clerk-expo";
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { FEATURES } from "@/config/features";
 import { useEntitlements } from "@/features/billing/hooks/useEntitlements";
 import GlassSurface from "@/ui/components/GlassSurface";
 import Colors from "@/ui/theme/colors";
 import { defaultStyles } from "@/ui/theme/styles";
-import { useUser } from "@clerk/clerk-expo";
-import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const HomeScreen = () => {
   const router = useRouter();

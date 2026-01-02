@@ -1,0 +1,47 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "ignore": [
+    "node_modules/**",
+    ".expo/**",
+    "apps/mobile/.expo/**",
+    "apps/mobile/ios/**",
+    "apps/mobile/android/**",
+    "dist/**",
+    "web-build/**",
+    ".turbo/**"
+  ],
+  "ignoreBinaries": ["start", "android", "ios", "web", "migrate"],
+  "workspaces": {
+    "apps/mobile": {
+      "entry": [
+        "app/**/*.tsx",
+        "config/**/*.ts",
+        "data/**/*.ts",
+        "features/**/*.ts",
+        "features/**/*.tsx",
+        "services/**/*.ts",
+        "ui/**/*.ts",
+        "ui/**/*.tsx",
+        "utils/**/*.ts",
+        "scripts/**/*.js"
+      ],
+      "ignoreDependencies": [
+        "expo-asset",
+        "expo-splash-screen",
+        "@react-native-community/cli",
+        "@react-native-community/cli-platform-android",
+        "@react-native-community/cli-platform-ios",
+        "@types/react-test-renderer",
+        "react-test-renderer"
+      ],
+      "project": ["tsconfig.json"]
+    },
+    "apps/backend": {
+      "entry": ["src/**/*.ts", "scripts/**/*.ts"],
+      "project": ["tsconfig.json"]
+    },
+    "packages/types": {
+      "project": ["tsconfig.json"]
+    }
+  }
+}

@@ -1,3 +1,5 @@
+import { useAuth, useUser } from "@clerk/clerk-expo";
+import { type ReactNode, useEffect } from "react";
 import { useApiRequest } from "@/services/api/client";
 import { fetchEntitlements, syncEntitlements } from "@/services/api/entitlements";
 import { setRcIsPro } from "@/services/billing/entitlements";
@@ -7,8 +9,6 @@ import {
   getIsProFromCustomerInfo,
   syncCustomerInfo,
 } from "@/services/billing/revenuecat";
-import { useAuth, useUser } from "@clerk/clerk-expo";
-import { type ReactNode, useEffect } from "react";
 
 type BillingProviderProps = {
   children: ReactNode;

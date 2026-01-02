@@ -1,5 +1,5 @@
+import type { SQLiteDatabase } from "expo-sqlite";
 import { type Message, Role } from "@/features/chat/models/messages";
-import type { SQLiteDatabase } from "expo-sqlite/next";
 
 export async function migrateChatTables(db: SQLiteDatabase) {
   await db.execAsync(`
@@ -30,7 +30,7 @@ export const getChats = async (db: SQLiteDatabase) => {
 
 export const getMessages = async (db: SQLiteDatabase, chatId: number): Promise<Message[]> => {
   return (await db.getAllAsync<Message>("SELECT * FROM messages WHERE chat_id = ?", chatId)).map(
-    (message) => ({
+    (message: Message) => ({
       ...message,
       role: `${message.role}` === "bot" ? Role.Bot : Role.User,
     }),

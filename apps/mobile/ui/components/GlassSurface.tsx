@@ -1,4 +1,4 @@
-import { GlassView, isGlassEffectAPIAvailable } from "expo-glass-effect";
+import { GlassView, isLiquidGlassAvailable } from "expo-glass-effect";
 import { Platform, StyleSheet, View, type ViewProps } from "react-native";
 
 type GlassSurfaceProps = ViewProps & {
@@ -15,7 +15,7 @@ const GlassSurface = ({
   isInteractive = false,
   ...rest
 }: GlassSurfaceProps) => {
-  const canUseGlass = Platform.OS === "ios" && isGlassEffectAPIAvailable();
+  const canUseGlass = Platform.OS === "ios" && isLiquidGlassAvailable();
 
   if (!canUseGlass) {
     return (

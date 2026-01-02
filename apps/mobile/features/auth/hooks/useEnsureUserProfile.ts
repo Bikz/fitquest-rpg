@@ -1,9 +1,9 @@
-import { upsertUserProfile } from "@/data/storage/database";
-import { useApiRequest } from "@/services/api/client";
-import { upsertUserProfile as upsertRemoteProfile } from "@/services/api/user";
 import { useUser } from "@clerk/clerk-expo";
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect } from "react";
+import { upsertUserProfile } from "@/data/storage/database";
+import { useApiRequest } from "@/services/api/client";
+import { upsertUserProfile as upsertRemoteProfile } from "@/services/api/user";
 
 const FALLBACK_DISPLAY_NAME = "App User";
 

@@ -1,10 +1,10 @@
-import { useOAuthSignIn } from "@/features/auth/hooks/useOAuthSignIn";
-import Colors from "@/ui/theme/colors";
-import { defaultStyles } from "@/ui/theme/styles";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useOAuthSignIn } from "@/features/auth/hooks/useOAuthSignIn";
+import Colors from "@/ui/theme/colors";
+import { defaultStyles } from "@/ui/theme/styles";
 
 const BottomLoginSheet = () => {
   const { bottom } = useSafeAreaInsets();

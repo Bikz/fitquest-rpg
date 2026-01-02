@@ -1,5 +1,5 @@
-import { env } from "@/config/env";
 import type { AiChatResponse, AiMessage } from "@loveleaf/types";
+import { env } from "@/config/env";
 
 type ChatAuth = {
   token?: string | null;

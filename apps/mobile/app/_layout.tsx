@@ -1,3 +1,9 @@
+import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
+import { tokenCache } from "@clerk/clerk-expo/token-cache";
+import { Ionicons } from "@expo/vector-icons";
+import { router, Stack } from "expo-router";
+import { ActivityIndicator, TouchableOpacity, View } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { env } from "@/config/env";
 import useSplashScreen from "@/features/app/hooks/useSplashScreen";
 import useAuthRouter from "@/features/auth/hooks/useAuthRouter";
@@ -6,12 +12,6 @@ import useInitTelemetry from "@/services/telemetry/useTelemetry";
 import ErrorBoundary from "@/ui/components/ErrorBoundary";
 import OfflineBanner from "@/ui/components/OfflineBanner";
 import Colors from "@/ui/theme/colors";
-import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
-import { tokenCache } from "@clerk/clerk-expo/token-cache";
-import { Ionicons } from "@expo/vector-icons";
-import { Stack, router } from "expo-router";
-import { ActivityIndicator, TouchableOpacity, View } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "@/services/notifications/expo";
 
 function RootNavigationLayout() {

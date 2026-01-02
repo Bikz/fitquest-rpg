@@ -1,7 +1,7 @@
-import { env } from "@/config/env";
-import { DEFAULT_RETRY, type RetryOptions, withRetry } from "@/services/api/retry";
 import { useAuth, useUser } from "@clerk/clerk-expo";
 import { useCallback } from "react";
+import { env } from "@/config/env";
+import { DEFAULT_RETRY, type RetryOptions, withRetry } from "@/services/api/retry";
 
 export class ApiRequestError extends Error {
   status?: number;

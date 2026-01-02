@@ -1,8 +1,7 @@
 import { Platform } from "react-native";
-import type { MMKV as MMKVInstance } from "react-native-mmkv";
-import { MMKV } from "react-native-mmkv";
+import { createMMKV, type MMKV } from "react-native-mmkv";
 
-const createWebStorage = (): MMKVInstance => {
+const createWebStorage = (): MMKV => {
   const data = new Map<string, boolean | number | string | ArrayBuffer>();
   const listeners = new Set<(key: string) => void>();
 
@@ -12,13 +11,18 @@ const createWebStorage = (): MMKVInstance => {
     }
   };
 
-  const webStorage = {
+  const webStorage: MMKV = {
+    name: "MMKVWebStorage",
     id: "com.loveleaf.appbase.web",
-    size: 0,
+    get size() {
+      return data.size;
+    },
     isReadOnly: false,
+    toString: () => "[MMKV WebStorage]",
+    equals: (other) => other === webStorage,
+    dispose: () => {},
     set: (key: string, value: boolean | number | string | ArrayBuffer) => {
       data.set(key, value);
-      webStorage.size = data.size;
       notify(key);
     },
     getBoolean: (key: string) => {
@@ -41,7 +45,6 @@ const createWebStorage = (): MMKVInstance => {
     remove: (key: string) => {
       const removed = data.delete(key);
       if (removed) {
-        webStorage.size = data.size;
         notify(key);
       }
       return removed;
@@ -53,7 +56,6 @@ const createWebStorage = (): MMKVInstance => {
       }
       const keys = Array.from(data.keys());
       data.clear();
-      webStorage.size = 0;
       for (const key of keys) {
         notify(key);
       }
@@ -66,16 +68,29 @@ const createWebStorage = (): MMKVInstance => {
         remove: () => listeners.delete(onValueChanged),
       };
     },
-    importAllFrom: () => 0,
+    importAllFrom: (other: MMKV) => {
+      const keys = other.getAllKeys();
+      for (const key of keys) {
+        const value =
+          other.getString(key) ??
+          other.getNumber(key) ??
+          other.getBoolean(key) ??
+          other.getBuffer(key);
+        if (value !== undefined) {
+          webStorage.set(key, value);
+        }
+      }
+      return keys.length;
+    },
   };
 
-  return webStorage as MMKVInstance;
+  return webStorage;
 };
 
-const canUseNativeStorage = Platform.OS !== "web" && typeof MMKV === "function";
+const canUseNativeStorage = Platform.OS !== "web";
 
 export const storage = canUseNativeStorage
-  ? new MMKV({
+  ? createMMKV({
       id: "com.loveleaf.appbase",
     })
   : createWebStorage();

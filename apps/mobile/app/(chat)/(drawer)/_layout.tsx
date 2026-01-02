@@ -1,6 +1,3 @@
-import { getChats, renameChat } from "@/features/chat/data/chatDatabase";
-import type { Chat } from "@/features/chat/models/messages";
-import Colors from "@/ui/theme/colors";
 import { FontAwesome6, Ionicons } from "@expo/vector-icons";
 import {
   type DrawerContentComponentProps,
@@ -21,12 +18,15 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
   useWindowDimensions,
+  View,
 } from "react-native";
 import { TextInput } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import * as ContextMenu from "zeego/context-menu";
+import { getChats, renameChat } from "@/features/chat/data/chatDatabase";
+import type { Chat } from "@/features/chat/models/messages";
+import Colors from "@/ui/theme/colors";
 
 const CustomDrawerElement = (props: DrawerContentComponentProps) => {
   const { top, bottom } = useSafeAreaInsets();

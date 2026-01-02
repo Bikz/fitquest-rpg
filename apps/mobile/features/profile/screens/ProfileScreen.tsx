@@ -1,11 +1,11 @@
+import { useAuth, useUser } from "@clerk/clerk-expo";
+import { useRouter } from "expo-router";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useEntitlements } from "@/features/billing/hooks/useEntitlements";
 import { openManageSubscriptions } from "@/services/billing/revenuecat";
 import GlassSurface from "@/ui/components/GlassSurface";
 import Colors from "@/ui/theme/colors";
 import { defaultStyles } from "@/ui/theme/styles";
-import { useAuth, useUser } from "@clerk/clerk-expo";
-import { useRouter } from "expo-router";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const ProfileScreen = () => {
   const { signOut } = useAuth();

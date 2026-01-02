@@ -1,3 +1,6 @@
+import { Link } from "expo-router";
+import { ActivityIndicator, Image, Pressable, StyleSheet, Text, View } from "react-native";
+import * as ContextMenu from "zeego/context-menu";
 import { type Message, Role } from "@/features/chat/models/messages";
 import {
   copyImageToClipboard,
@@ -5,10 +8,6 @@ import {
   shareImage,
 } from "@/services/media/imageActions";
 import Colors from "@/ui/theme/colors";
-
-import { Link } from "expo-router";
-import { ActivityIndicator, Image, Pressable, StyleSheet, Text, View } from "react-native";
-import * as ContextMenu from "zeego/context-menu";
 
 const ChatMessage = ({
   content,
@@ -51,45 +50,36 @@ const ChatMessage = ({
         <View style={styles.loading}>
           <ActivityIndicator color={Colors.primary} size="small" />
         </View>
+      ) : content === "" && imageUrl ? (
+        <ContextMenu.Root>
+          <ContextMenu.Trigger>
+            <Link
+              href={`/(chat)/(modal)/image/${encodeURIComponent(imageUrl)}?prompt=${encodeURIComponent(
+                prompt ?? "",
+              )}`}
+              asChild
+            >
+              <Pressable>
+                <Image source={{ uri: imageUrl }} style={styles.previewImage} />
+              </Pressable>
+            </Link>
+          </ContextMenu.Trigger>
+          <ContextMenu.Content alignOffset={0} avoidCollisions collisionPadding={0} loop={false}>
+            {contextItems.map((item) => (
+              <ContextMenu.Item key={item.title} onSelect={item.action}>
+                <ContextMenu.ItemTitle>{item.title}</ContextMenu.ItemTitle>
+                <ContextMenu.ItemIcon
+                  ios={{
+                    name: item.systemIcon,
+                    pointSize: 18,
+                  }}
+                />
+              </ContextMenu.Item>
+            ))}
+          </ContextMenu.Content>
+        </ContextMenu.Root>
       ) : (
-        <>
-          {content === "" && imageUrl ? (
-            <ContextMenu.Root>
-              <ContextMenu.Trigger>
-                <Link
-                  href={`/(chat)/(modal)/image/${encodeURIComponent(
-                    imageUrl,
-                  )}?prompt=${encodeURIComponent(prompt ?? "")}`}
-                  asChild
-                >
-                  <Pressable>
-                    <Image source={{ uri: imageUrl }} style={styles.previewImage} />
-                  </Pressable>
-                </Link>
-              </ContextMenu.Trigger>
-              <ContextMenu.Content
-                alignOffset={0}
-                avoidCollisions
-                collisionPadding={0}
-                loop={false}
-              >
-                {contextItems.map((item) => (
-                  <ContextMenu.Item key={item.title} onSelect={item.action}>
-                    <ContextMenu.ItemTitle>{item.title}</ContextMenu.ItemTitle>
-                    <ContextMenu.ItemIcon
-                      ios={{
-                        name: item.systemIcon,
-                        pointSize: 18,
-                      }}
-                    />
-                  </ContextMenu.Item>
-                ))}
-              </ContextMenu.Content>
-            </ContextMenu.Root>
-          ) : (
-            <Text style={styles.text}>{content}</Text>
-          )}
-        </>
+        <Text style={styles.text}>{content}</Text>
       )}
     </View>
   );

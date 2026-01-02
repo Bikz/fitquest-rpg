@@ -1,20 +1,20 @@
-import { STORAGE_KEYS } from "@/data/storage/keys";
-import { storage } from "@/data/storage/kv";
-import Colors from "@/ui/theme/colors";
-import { defaultStyles } from "@/ui/theme/styles";
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import { useMemo, useRef, useState } from "react";
 import {
   Animated,
   Platform,
-  ScrollView,
+  type ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
   useWindowDimensions,
+  View,
 } from "react-native";
+import { STORAGE_KEYS } from "@/data/storage/keys";
+import { storage } from "@/data/storage/kv";
+import Colors from "@/ui/theme/colors";
+import { defaultStyles } from "@/ui/theme/styles";
 
 const PAGES = [
   {
@@ -49,11 +49,7 @@ const OnboardingScreen = () => {
   const pageStyles = useMemo(
     () =>
       PAGES.map((_, pageIndex) => {
-        const inputRange = [
-          (pageIndex - 1) * width,
-          pageIndex * width,
-          (pageIndex + 1) * width,
-        ];
+        const inputRange = [(pageIndex - 1) * width, pageIndex * width, (pageIndex + 1) * width];
         return {
           opacity: scrollX.interpolate({
             inputRange,
@@ -94,10 +90,9 @@ const OnboardingScreen = () => {
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={16}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-          { useNativeDriver: true },
-        )}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
+          useNativeDriver: true,
+        })}
         onMomentumScrollEnd={(event) => {
           const nextIndex = Math.round(event.nativeEvent.contentOffset.x / width);
           if (nextIndex !== lastIndexRef.current) {

@@ -1,9 +1,9 @@
-import { STORAGE_KEYS } from "@/data/storage/keys";
-import { storage } from "@/data/storage/kv";
 import { useAuth } from "@clerk/clerk-expo";
 import { useRouter, useSegments } from "expo-router";
 import { useEffect } from "react";
 import { useMMKVBoolean } from "react-native-mmkv";
+import { STORAGE_KEYS } from "@/data/storage/keys";
+import { storage } from "@/data/storage/kv";
 
 const useAuthRouter = () => {
   const { isLoaded: authDataLoaded, isSignedIn } = useAuth();

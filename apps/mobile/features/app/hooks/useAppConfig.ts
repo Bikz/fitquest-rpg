@@ -1,9 +1,9 @@
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useMMKVString } from "react-native-mmkv";
 import { STORAGE_KEYS } from "@/data/storage/keys";
 import { storage } from "@/data/storage/kv";
 import { fetchAppConfig } from "@/services/api/app";
 import { useApiRequest } from "@/services/api/client";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useMMKVString } from "react-native-mmkv";
 
 const parseConfig = (value?: string | null) => {
   if (!value) return {} as Record<string, unknown>;

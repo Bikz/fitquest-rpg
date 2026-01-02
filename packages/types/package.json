@@ -6,6 +6,10 @@
   "main": "src/index.ts",
   "types": "src/index.ts",
   "scripts": {
-    "build": "echo 'types package placeholder'"
+    "build": "echo 'types package placeholder'",
+    "typecheck": "bunx tsc --noEmit"
+  },
+  "devDependencies": {
+    "@loveleaf/config": "workspace:*"
   }
 }

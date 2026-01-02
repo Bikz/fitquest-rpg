@@ -1,6 +1,7 @@
 {
   "extends": "@loveleaf/config/tsconfig-expo",
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
     }

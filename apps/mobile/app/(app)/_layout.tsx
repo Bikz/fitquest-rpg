@@ -1,8 +1,8 @@
+import { Stack } from "expo-router";
+import { SQLiteProvider } from "expo-sqlite";
 import { migrateDbIfNeeded } from "@/data/storage/database";
 import useEnsureUserProfile from "@/features/auth/hooks/useEnsureUserProfile";
 import Colors from "@/ui/theme/colors";
-import { Stack } from "expo-router";
-import { SQLiteProvider } from "expo-sqlite";
 
 const AppStack = () => {
   useEnsureUserProfile();

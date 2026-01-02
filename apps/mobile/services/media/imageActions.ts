@@ -1,12 +1,17 @@
 import * as Clipboard from "expo-clipboard";
-import * as FileSystem from "expo-file-system";
+import * as FileSystem from "expo-file-system/legacy";
 import * as MediaLibrary from "expo-media-library";
 import * as Sharing from "expo-sharing";
 import { Alert } from "react-native";
 
 // https://stackoverflow.com/questions/73706343/i-want-to-download-an-image-with-react-native-expo-from-a-url
 export const downloadAndSaveImage = async (imageUrl: string) => {
-  const fileUri = `${FileSystem.documentDirectory}${new Date().getTime()}.jpg`;
+  const baseDirectory = FileSystem.documentDirectory ?? FileSystem.cacheDirectory;
+  if (!baseDirectory) {
+    Alert.alert("Storage unavailable", "Unable to access the file system.");
+    return;
+  }
+  const fileUri = `${baseDirectory}${Date.now()}.jpg`;
 
   try {
     const res = await FileSystem.downloadAsync(imageUrl, fileUri);
@@ -42,7 +47,12 @@ const saveFile = async (fileUri: string) => {
 };
 
 export const copyImageToClipboard = async (imageUrl: string) => {
-  const fileUri = `${FileSystem.documentDirectory}${new Date().getTime()}.jpg`;
+  const baseDirectory = FileSystem.documentDirectory ?? FileSystem.cacheDirectory;
+  if (!baseDirectory) {
+    Alert.alert("Storage unavailable", "Unable to access the file system.");
+    return;
+  }
+  const fileUri = `${baseDirectory}${Date.now()}.jpg`;
 
   try {
     const res = await FileSystem.downloadAsync(imageUrl, fileUri);

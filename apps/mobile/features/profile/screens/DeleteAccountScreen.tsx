@@ -1,7 +1,3 @@
-import { useApiRequest } from "@/services/api/client";
-import { deleteUserAccount } from "@/services/api/user";
-import Colors from "@/ui/theme/colors";
-import { defaultStyles } from "@/ui/theme/styles";
 import { useAuth, useUser } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import { useState } from "react";
@@ -13,6 +9,10 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useApiRequest } from "@/services/api/client";
+import { deleteUserAccount } from "@/services/api/user";
+import Colors from "@/ui/theme/colors";
+import { defaultStyles } from "@/ui/theme/styles";
 
 const DeleteAccountScreen = () => {
   const { signOut } = useAuth();

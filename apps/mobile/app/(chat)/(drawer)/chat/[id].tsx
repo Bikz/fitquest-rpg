@@ -1,5 +1,5 @@
-import ChatScreen from "@/features/chat/screens/ChatScreen";
 import { useLocalSearchParams } from "expo-router";
+import ChatScreen from "@/features/chat/screens/ChatScreen";
 
 const Chat = () => {
   const { id } = useLocalSearchParams();

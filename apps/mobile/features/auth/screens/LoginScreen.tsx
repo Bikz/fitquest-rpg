@@ -1,5 +1,3 @@
-import Colors from "@/ui/theme/colors";
-import { defaultStyles } from "@/ui/theme/styles";
 import { useSignIn, useSignUp } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
@@ -13,12 +11,26 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View,
   useWindowDimensions,
+  View,
 } from "react-native";
+import Colors from "@/ui/theme/colors";
+import { defaultStyles } from "@/ui/theme/styles";
 
 type ClerkError = {
   errors?: { message?: string; code?: string }[];
+};
+
+const fieldLabelMap: Record<string, string> = {
+  first_name: "first name",
+  last_name: "last name",
+  password: "password",
+  legal_accepted: "terms acceptance",
+  email_address: "email",
+  phone_number: "phone number",
+  username: "username",
+  web3_wallet: "web3 wallet",
+  email_address_or_phone_number: "email or phone",
 };
 
 const getClerkError = (err: unknown) => {
@@ -34,6 +46,22 @@ const getClerkError = (err: unknown) => {
   return {};
 };
 
+const formatFieldList = (fields: string[]) => {
+  const normalized = Array.from(
+    new Set(fields.map((field) => fieldLabelMap[field] ?? field)),
+  ).filter(Boolean);
+  if (normalized.length === 0) {
+    return "";
+  }
+  if (normalized.length === 1) {
+    return normalized[0];
+  }
+  if (normalized.length === 2) {
+    return `${normalized[0]} and ${normalized[1]}`;
+  }
+  return `${normalized.slice(0, -1).join(", ")}, and ${normalized[normalized.length - 1]}`;
+};
+
 const LoginScreen = () => {
   const router = useRouter();
   const { height } = useWindowDimensions();
@@ -47,7 +75,7 @@ const LoginScreen = () => {
   const [flow, setFlow] = useState<"signIn" | "signUp" | null>(null);
   const [loading, setLoading] = useState(false);
   const [resendCooldown, setResendCooldown] = useState(0);
-  const [resendSeed, setResendSeed] = useState(0);
+  const [signInEmailAddressId, setSignInEmailAddressId] = useState<string | null>(null);
   const emailValue = emailAddress.trim();
   const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue);
   const showEmailError = emailValue.length > 0 && !isEmailValid;
@@ -69,12 +97,13 @@ const LoginScreen = () => {
     }, 1000);
     setResendCooldown(45);
     return () => clearInterval(interval);
-  }, [pendingVerification, resendSeed]);
+  }, [pendingVerification]);
 
   const startEmailFlow = async () => {
-    if (!signInLoaded || !signUpLoaded) {
+    if (!signInLoaded || !signUpLoaded || !signIn || !signUp) {
       return;
     }
+    setSignInEmailAddressId(null);
     const email = emailAddress.trim();
     if (!email) {
       Alert.alert("Enter your email", "Please add an email address to continue.");
@@ -87,24 +116,47 @@ const LoginScreen = () => {
     setLoading(true);
     try {
       await signIn.create({ identifier: email });
-      await signIn.prepareFirstFactor({ strategy: "email_code" });
+      const emailFactor = signIn.supportedFirstFactors?.find(
+        (factor) => factor.strategy === "email_code",
+      );
+      const emailAddressId =
+        emailFactor && "emailAddressId" in emailFactor ? emailFactor.emailAddressId : null;
+      if (!emailAddressId) {
+        Alert.alert("Email code unavailable", "No email code factor is available for this user.");
+        setLoading(false);
+        return;
+      }
+      await signIn.prepareFirstFactor({ strategy: "email_code", emailAddressId });
+      setSignInEmailAddressId(emailAddressId);
       setFlow("signIn");
       setPendingVerification(true);
     } catch (err) {
       const { message, code: errorCode } = getClerkError(err);
       const isNotFound =
-        errorCode === "form_identifier_not_found" ||
-        message?.toLowerCase().includes("not found");
+        errorCode === "form_identifier_not_found" || message?.toLowerCase().includes("not found");
       if (!isNotFound) {
         Alert.alert("Sign in failed", message ?? "Try again.");
         setLoading(false);
         return;
       }
       try {
-        await signUp.create({ emailAddress: email });
+        const result = await signUp.create({ emailAddress: email });
+        const blockingFields = result.requiredFields?.filter((field) => field !== "email_address");
+        if (blockingFields?.length) {
+          const missing = formatFieldList(blockingFields);
+          Alert.alert(
+            "Sign-up needs more info",
+            missing
+              ? `Clerk requires ${missing} to finish sign-up. Update the Clerk sign-up requirements or collect these fields in-app.`
+              : "Clerk requires more info to finish sign-up. Update the Clerk sign-up requirements or collect additional fields.",
+          );
+          setLoading(false);
+          return;
+        }
         await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
         setFlow("signUp");
         setPendingVerification(true);
+        setSignInEmailAddressId(null);
       } catch (signUpErr) {
         const { message: signUpMessage } = getClerkError(signUpErr);
         Alert.alert("Sign up failed", signUpMessage ?? "Try again.");
@@ -126,27 +178,61 @@ const LoginScreen = () => {
     setLoading(true);
     try {
       if (flow === "signIn") {
+        if (!signInLoaded || !signIn || !setActive) {
+          return;
+        }
         const attempt = await signIn.attemptFirstFactor({
           strategy: "email_code",
           code: value,
         });
-        if (attempt.status === "complete") {
+        if (attempt.status === "complete" && attempt.createdSessionId) {
           await setActive({ session: attempt.createdSessionId });
           router.replace("/(app)/(tabs)/home");
           return;
         }
+        if (attempt.status === "needs_second_factor") {
+          Alert.alert(
+            "Two-factor required",
+            "This account requires a second factor to finish sign-in.",
+          );
+          return;
+        }
+        if (attempt.status === "needs_new_password") {
+          Alert.alert(
+            "Password reset required",
+            "This account needs a password reset before it can sign in.",
+          );
+          return;
+        }
       } else {
+        if (!signUpLoaded || !signUp || !setActiveSignUp) {
+          return;
+        }
         const attempt = await signUp.attemptEmailAddressVerification({ code: value });
-        if (attempt.status === "complete") {
+        if (attempt.status === "complete" && attempt.createdSessionId) {
           await setActiveSignUp({ session: attempt.createdSessionId });
           router.replace("/(app)/(tabs)/home");
+          return;
+        }
+        if (attempt.status === "missing_requirements") {
+          const missing = formatFieldList(attempt.missingFields ?? []);
+          Alert.alert(
+            "Sign-up needs more info",
+            missing
+              ? `Clerk requires ${missing} to finish sign-up. Update the Clerk sign-up requirements or collect these fields in-app.`
+              : "Clerk requires more info to finish sign-up. Update the Clerk sign-up requirements or collect additional fields.",
+          );
           return;
         }
       }
       Alert.alert("Verification incomplete", "Try again or request a new code.");
     } catch (err) {
       const { message } = getClerkError(err);
-      Alert.alert("Verification failed", message ?? "Try again.");
+      if (message?.toLowerCase().includes("already verified")) {
+        Alert.alert("Code already used", "Request a new code and try again.");
+      } else {
+        Alert.alert("Verification failed", message ?? "Try again.");
+      }
     } finally {
       setLoading(false);
     }
@@ -157,26 +243,34 @@ const LoginScreen = () => {
     setFlow(null);
     setCode("");
     setResendCooldown(0);
+    setSignInEmailAddressId(null);
   };
 
   const resendCode = async () => {
     if (!pendingVerification || !flow) {
       return;
     }
-    if (flow === "signIn" && !signInLoaded) {
-      return;
-    }
-    if (flow === "signUp" && !signUpLoaded) {
-      return;
-    }
     setLoading(true);
     try {
       if (flow === "signIn") {
-        await signIn.prepareFirstFactor({ strategy: "email_code" });
+        if (!signInLoaded || !signIn) {
+          return;
+        }
+        if (!signInEmailAddressId) {
+          Alert.alert("Missing email setup", "Restart the sign-in flow to request a new code.");
+          return;
+        }
+        await signIn.prepareFirstFactor({
+          strategy: "email_code",
+          emailAddressId: signInEmailAddressId,
+        });
       } else {
+        if (!signUpLoaded || !signUp) {
+          return;
+        }
         await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
       }
-      setResendSeed((value) => value + 1);
+      setResendCooldown(45);
     } catch (err) {
       const { message } = getClerkError(err);
       Alert.alert("Resend failed", message ?? "Try again.");
@@ -219,7 +313,10 @@ const LoginScreen = () => {
                   <Text style={styles.resendHint}>Didn’t get a code?</Text>
                   <TouchableOpacity disabled={resendDisabled} onPress={resendCode}>
                     <Text
-                      style={[styles.resendButtonText, resendDisabled && styles.resendButtonDisabled]}
+                      style={[
+                        styles.resendButtonText,
+                        resendDisabled && styles.resendButtonDisabled,
+                      ]}
                     >
                       {resendLabel}
                     </Text>

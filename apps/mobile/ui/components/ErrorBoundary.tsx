@@ -1,7 +1,7 @@
-import { captureError } from "@/services/telemetry";
-import Colors from "@/ui/theme/colors";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { captureError } from "@/services/telemetry";
+import Colors from "@/ui/theme/colors";
 
 type ErrorBoundaryState = {
   hasError: boolean;

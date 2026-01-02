@@ -1,7 +1,7 @@
-import { BILLING } from "@/config/billing";
-import { env } from "@/config/env";
 import { Linking, Platform } from "react-native";
 import Purchases, { type CustomerInfo } from "react-native-purchases";
+import { BILLING } from "@/config/billing";
+import { env } from "@/config/env";
 
 const getApiKey = () => {
   if (Platform.OS === "ios") return env.revenueCat.iosApiKey;

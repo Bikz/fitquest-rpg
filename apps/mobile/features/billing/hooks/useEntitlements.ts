@@ -1,6 +1,6 @@
+import { useMMKVBoolean } from "react-native-mmkv";
 import { STORAGE_KEYS } from "@/data/storage/keys";
 import { storage } from "@/data/storage/kv";
-import { useMMKVBoolean } from "react-native-mmkv";
 
 export const useEntitlements = () => {
   const [rcIsPro] = useMMKVBoolean(STORAGE_KEYS.rcIsPro, storage);

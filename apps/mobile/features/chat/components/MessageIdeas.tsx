@@ -1,7 +1,7 @@
-import Colors from "@/ui/theme/colors";
 import type { FC } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import Colors from "@/ui/theme/colors";
 
 const PredefinedMessages = [
   { title: "Explain React Native", text: "like I'm five years old" },

@@ -1,6 +1,6 @@
-import { ApiRequestError, useApiRequest } from "@/services/api/client";
 import { useUser } from "@clerk/clerk-expo";
 import { useEffect, useRef } from "react";
+import { ApiRequestError, useApiRequest } from "@/services/api/client";
 import { configureTelemetry, setUserContext } from "./index";
 
 const useInitTelemetry = () => {
