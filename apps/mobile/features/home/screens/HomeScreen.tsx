@@ -1,6 +1,7 @@
 import { useUser } from "@clerk/clerk-expo";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { FEATURES } from "@/config/features";
 import { useEntitlements } from "@/features/billing/hooks/useEntitlements";
@@ -10,6 +11,7 @@ import { defaultStyles } from "@/ui/theme/styles";
 
 const HomeScreen = () => {
   const router = useRouter();
+  const { t } = useTranslation();
   const { user } = useUser();
   const { isPro } = useEntitlements();
   const displayName = user?.firstName || user?.fullName || "there";
@@ -17,7 +19,7 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>AppBase</Text>
+        <Text style={styles.headerTitle}>{t("home.title")}</Text>
         <TouchableOpacity
           style={styles.profileButton}
           onPress={() => router.push("/(app)/(tabs)/profile")}
@@ -27,18 +29,18 @@ const HomeScreen = () => {
       </View>
 
       <View style={styles.content}>
-        <Text style={styles.welcomeTitle}>Hi {displayName}.</Text>
-        <Text style={styles.welcomeSubtitle}>Your base template is ready to customize.</Text>
+        <Text style={styles.welcomeTitle}>{t("home.greeting", { name: displayName })}</Text>
+        <Text style={styles.welcomeSubtitle}>{t("home.subtitle")}</Text>
 
         <GlassSurface style={styles.card} glassEffectStyle="regular">
-          <Text style={styles.cardTitle}>Plan</Text>
-          <Text style={styles.cardValue}>{isPro ? "Pro" : "Free"}</Text>
+          <Text style={styles.cardTitle}>{t("home.plan")}</Text>
+          <Text style={styles.cardValue}>{isPro ? t("home.pro") : t("home.free")}</Text>
           {!isPro && (
             <TouchableOpacity
               style={[defaultStyles.btn, styles.upgradeButton]}
               onPress={() => router.push("/(app)/upgrade")}
             >
-              <Text style={styles.upgradeButtonText}>Upgrade to Pro</Text>
+              <Text style={styles.upgradeButtonText}>{t("home.upgrade")}</Text>
             </TouchableOpacity>
           )}
         </GlassSurface>
@@ -48,7 +50,7 @@ const HomeScreen = () => {
             style={[defaultStyles.btn, styles.primaryButton]}
             onPress={() => router.push("/(chat)/(drawer)/chat/new")}
           >
-            <Text style={styles.primaryButtonText}>Open Chat</Text>
+            <Text style={styles.primaryButtonText}>{t("home.openChat")}</Text>
           </TouchableOpacity>
         )}
       </View>

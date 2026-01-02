@@ -2,6 +2,7 @@ import { useSignIn, useSignUp } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
   Alert,
@@ -70,6 +71,7 @@ const formatFieldList = (fields: string[]) => {
 
 const LoginScreen = () => {
   const router = useRouter();
+  const { t } = useTranslation();
   const { height } = useWindowDimensions();
   const verticalOffset = Math.round(height * 0.12);
   const { signIn, setActive, isLoaded: signInLoaded } = useSignIn();
@@ -100,10 +102,12 @@ const LoginScreen = () => {
   const resendDisabled = resendCooldown > 0 || loading;
   const resendLabel =
     resendCooldown > 0
-      ? `Resend in ${String(Math.floor(resendCooldown / 60)).padStart(2, "0")}:${String(
-          resendCooldown % 60,
-        ).padStart(2, "0")}`
-      : "Resend code";
+      ? t("auth.resendIn", {
+          time: `${String(Math.floor(resendCooldown / 60)).padStart(2, "0")}:${String(
+            resendCooldown % 60,
+          ).padStart(2, "0")}`,
+        })
+      : t("auth.resendCode");
 
   useEffect(() => {
     if (!pendingVerification) {
@@ -124,11 +128,11 @@ const LoginScreen = () => {
     setSignInEmailAddressId(null);
     const normalizedEmail = email.trim();
     if (!normalizedEmail) {
-      Alert.alert("Enter your email", "Please add an email address to continue.");
+      Alert.alert(t("auth.enterEmailTitle"), t("auth.enterEmailBody"));
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
-      Alert.alert("Invalid email", "Enter a valid email address to continue.");
+      Alert.alert(t("auth.invalidEmailTitle"), t("auth.invalidEmailBody"));
       return;
     }
     setLoading(true);
@@ -140,7 +144,7 @@ const LoginScreen = () => {
       const emailAddressId =
         emailFactor && "emailAddressId" in emailFactor ? emailFactor.emailAddressId : null;
       if (!emailAddressId) {
-        Alert.alert("Email code unavailable", "No email code factor is available for this user.");
+        Alert.alert(t("auth.emailCodeUnavailableTitle"), t("auth.emailCodeUnavailableBody"));
         setLoading(false);
         return;
       }
@@ -154,7 +158,7 @@ const LoginScreen = () => {
       const isNotFound =
         errorCode === "form_identifier_not_found" || message?.toLowerCase().includes("not found");
       if (!isNotFound) {
-        Alert.alert("Sign in failed", message ?? "Try again.");
+        Alert.alert(t("auth.signInFailedTitle"), message ?? t("auth.tryAgain"));
         setLoading(false);
         return;
       }
@@ -164,10 +168,10 @@ const LoginScreen = () => {
         if (blockingFields?.length) {
           const missing = formatFieldList(blockingFields);
           Alert.alert(
-            "Sign-up needs more info",
+            t("auth.signUpNeedsInfoTitle"),
             missing
-              ? `Clerk requires ${missing} to finish sign-up. Update the Clerk sign-up requirements or collect these fields in-app.`
-              : "Clerk requires more info to finish sign-up. Update the Clerk sign-up requirements or collect additional fields.",
+              ? t("auth.signUpNeedsInfoBody", { fields: missing })
+              : t("auth.signUpNeedsInfoBodyGeneric"),
           );
           setLoading(false);
           return;
@@ -179,7 +183,7 @@ const LoginScreen = () => {
         setValue("code", "");
       } catch (signUpErr) {
         const { message: signUpMessage } = getClerkError(signUpErr);
-        Alert.alert("Sign up failed", signUpMessage ?? "Try again.");
+        Alert.alert(t("auth.signUpFailedTitle"), signUpMessage ?? t("auth.tryAgain"));
       }
     } finally {
       setLoading(false);
@@ -192,7 +196,7 @@ const LoginScreen = () => {
     }
     const value = codeValue;
     if (!value) {
-      Alert.alert("Enter the code", "Check your email for the verification code.");
+      Alert.alert(t("auth.enterCodeTitle"), t("auth.enterCodeBody"));
       return;
     }
     setLoading(true);
@@ -211,17 +215,11 @@ const LoginScreen = () => {
           return;
         }
         if (attempt.status === "needs_second_factor") {
-          Alert.alert(
-            "Two-factor required",
-            "This account requires a second factor to finish sign-in.",
-          );
+          Alert.alert(t("auth.secondFactorTitle"), t("auth.secondFactorBody"));
           return;
         }
         if (attempt.status === "needs_new_password") {
-          Alert.alert(
-            "Password reset required",
-            "This account needs a password reset before it can sign in.",
-          );
+          Alert.alert(t("auth.passwordResetTitle"), t("auth.passwordResetBody"));
           return;
         }
       } else {
@@ -237,21 +235,21 @@ const LoginScreen = () => {
         if (attempt.status === "missing_requirements") {
           const missing = formatFieldList(attempt.missingFields ?? []);
           Alert.alert(
-            "Sign-up needs more info",
+            t("auth.signUpNeedsInfoTitle"),
             missing
-              ? `Clerk requires ${missing} to finish sign-up. Update the Clerk sign-up requirements or collect these fields in-app.`
-              : "Clerk requires more info to finish sign-up. Update the Clerk sign-up requirements or collect additional fields.",
+              ? t("auth.signUpNeedsInfoBody", { fields: missing })
+              : t("auth.signUpNeedsInfoBodyGeneric"),
           );
           return;
         }
       }
-      Alert.alert("Verification incomplete", "Try again or request a new code.");
+      Alert.alert(t("auth.verificationIncompleteTitle"), t("auth.verificationIncompleteBody"));
     } catch (err) {
       const { message } = getClerkError(err);
       if (message?.toLowerCase().includes("already verified")) {
-        Alert.alert("Code already used", "Request a new code and try again.");
+        Alert.alert(t("auth.codeAlreadyUsedTitle"), t("auth.codeAlreadyUsedBody"));
       } else {
-        Alert.alert("Verification failed", message ?? "Try again.");
+        Alert.alert(t("auth.verificationFailedTitle"), message ?? t("auth.tryAgain"));
       }
     } finally {
       setLoading(false);
@@ -313,28 +311,30 @@ const LoginScreen = () => {
       <View style={[styles.content, { marginTop: -verticalOffset }]}>
         <Image source={require("../../../assets/images/logo-dark.png")} style={styles.logo} />
         <Text style={styles.title}>
-          {pendingVerification ? "Check your email" : "Continue with email"}
+          {pendingVerification ? t("auth.checkEmailTitle") : t("auth.continueWithEmailTitle")}
         </Text>
         <View style={styles.card}>
           <View style={styles.form}>
             {pendingVerification ? (
               <>
-                <Text style={styles.subtitle}>Enter the 6-digit code we sent to {emailValue}.</Text>
+                <Text style={styles.subtitle}>
+                  {t("auth.emailCodeHint", { email: emailValue })}
+                </Text>
                 <Controller
                   control={control}
                   name="code"
                   rules={{
                     validate: (value) => {
                       if (!pendingVerification) return true;
-                      if (!value?.trim()) return "Enter the 6-digit code.";
-                      if (!/^\d{6}$/.test(value.trim())) return "Enter the 6-digit code.";
+                      if (!value?.trim()) return t("auth.enterCodeValidation");
+                      if (!/^\d{6}$/.test(value.trim())) return t("auth.enterCodeValidation");
                       return true;
                     },
                   }}
                   render={({ field: { value, onChange } }) => (
                     <TextInput
                       keyboardType="number-pad"
-                      placeholder="123456"
+                      placeholder={t("auth.codePlaceholder")}
                       value={value}
                       onChangeText={onChange}
                       style={[styles.inputField, codeError && styles.inputFieldError]}
@@ -343,7 +343,7 @@ const LoginScreen = () => {
                 />
                 {!!codeError && <Text style={styles.errorText}>{codeError}</Text>}
                 <View style={styles.resendRow}>
-                  <Text style={styles.resendHint}>Didn’t get a code?</Text>
+                  <Text style={styles.resendHint}>{t("auth.didntGetCode")}</Text>
                   <TouchableOpacity disabled={resendDisabled} onPress={resendCode}>
                     <Text
                       style={[
@@ -372,7 +372,7 @@ const LoginScreen = () => {
                     autoCapitalize="none"
                     autoCorrect={false}
                     keyboardType="email-address"
-                    placeholder="you@example.com"
+                    placeholder={t("auth.emailPlaceholder")}
                     value={value}
                     onChangeText={onChange}
                     style={[styles.inputField, emailError && styles.inputFieldError]}
@@ -395,13 +395,13 @@ const LoginScreen = () => {
                 onPress={handleSubmit(verifyCode)}
                 disabled={!isCodeValid || loading}
               >
-                <Text style={styles.btnPrimaryText}>Verify code</Text>
+                <Text style={styles.btnPrimaryText}>{t("auth.verifyCode")}</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[defaultStyles.btn, styles.btnSecondary]}
                 onPress={resetFlow}
               >
-                <Text style={styles.btnSecondaryText}>Use a different email</Text>
+                <Text style={styles.btnSecondaryText}>{t("auth.useDifferentEmail")}</Text>
               </TouchableOpacity>
             </>
           ) : (
@@ -414,7 +414,7 @@ const LoginScreen = () => {
               onPress={handleSubmit(startEmailFlow)}
               disabled={!isEmailValid || loading}
             >
-              <Text style={styles.btnPrimaryText}>Continue</Text>
+              <Text style={styles.btnPrimaryText}>{t("common.continue")}</Text>
             </TouchableOpacity>
           )}
         </View>

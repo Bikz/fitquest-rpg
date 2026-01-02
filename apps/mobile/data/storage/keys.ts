@@ -4,4 +4,5 @@ export const STORAGE_KEYS = {
   rcIsPro: "rcIsPro",
   appConfig: "appConfig",
   appVersionInfo: "appVersionInfo",
+  appLanguage: "appLanguage",
 } as const;

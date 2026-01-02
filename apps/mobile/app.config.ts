@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { config as loadEnv } from "dotenv";
 import type { ConfigContext, ExpoConfig } from "expo/config";
-import { parseEnv } from "./config/env.schema";
+import { parseEnv } from "./config/env.schema.ts";
 
 const resolveEnvPath = (appEnv: string) => path.join(__dirname, `.env.${appEnv}`);
 

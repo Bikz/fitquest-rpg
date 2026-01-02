@@ -8,6 +8,7 @@ import { env } from "@/config/env";
 import useSplashScreen from "@/features/app/hooks/useSplashScreen";
 import useAuthRouter from "@/features/auth/hooks/useAuthRouter";
 import BillingProvider from "@/features/billing/components/BillingProvider";
+import "@/services/i18n";
 import useInitTelemetry from "@/services/telemetry/useTelemetry";
 import ErrorBoundary from "@/ui/components/ErrorBoundary";
 import OfflineBanner from "@/ui/components/OfflineBanner";
