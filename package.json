@@ -18,6 +18,7 @@
     "mobile:web": "cd apps/mobile && bun web",
     "mobile:lint": "cd apps/mobile && bun lint",
     "mobile:test": "cd apps/mobile && bun test",
+    "mobile:e2e": "cd apps/mobile && bun e2e",
     "backend:dev": "cd apps/backend && bun dev",
     "backend:start": "cd apps/backend && bun start",
     "backend:migrate": "cd apps/backend && bun migrate",
@@ -28,12 +29,20 @@
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
     "format": "biome format --write .",
-    "format:check": "biome format ."
+    "format:check": "biome format .",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,cjs,mjs,cts,mts,json}": [
+      "bunx biome check --write"
+    ]
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.10",
     "@types/node": "^22.10.2",
+    "husky": "^9.1.7",
     "knip": "^5.63.1",
+    "lint-staged": "^15.5.2",
     "turbo": "^2.7.2",
     "typescript": "~5.9.3"
   },

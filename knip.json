@@ -10,7 +10,7 @@
     "web-build/**",
     ".turbo/**"
   ],
-  "ignoreBinaries": ["start", "android", "ios", "web", "migrate"],
+  "ignoreBinaries": ["start", "android", "ios", "web", "migrate", "e2e", "maestro"],
   "workspaces": {
     "apps/mobile": {
       "entry": [

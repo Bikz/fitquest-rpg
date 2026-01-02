@@ -1,70 +1,63 @@
-const readEnv = (key: string, fallback = "") => {
-  const value = process.env[key];
-  return value === undefined || value === "" ? fallback : value;
-};
+import { parseEnv } from "./env.schema";
 
-const readNumber = (key: string, fallback: number) => {
-  const value = process.env[key];
-  if (!value) return fallback;
-  const parsed = Number(value);
-  return Number.isNaN(parsed) ? fallback : parsed;
-};
+const parsed = parseEnv(process.env);
 
 export const env = {
-  port: readNumber("PORT", 8787),
-  corsOrigin: readEnv("CORS_ORIGIN", "*"),
+  appEnv: parsed.APP_ENV,
+  port: parsed.PORT,
+  corsOrigin: parsed.CORS_ORIGIN,
   database: {
-    url: readEnv("DATABASE_URL"),
-    ssl: readEnv("DATABASE_SSL", "false") === "true",
-    poolMax: readNumber("DATABASE_POOL_MAX", 10),
+    url: parsed.DATABASE_URL,
+    ssl: parsed.DATABASE_SSL === "true",
+    poolMax: parsed.DATABASE_POOL_MAX,
   },
   ai: {
-    mode: readEnv("AI_MODE", "mock"),
-    upstreamUrl: readEnv("AI_UPSTREAM_URL"),
-    upstreamKey: readEnv("AI_UPSTREAM_KEY"),
-    timeoutMs: readNumber("AI_TIMEOUT_MS", 30000),
+    mode: parsed.AI_MODE,
+    upstreamUrl: parsed.AI_UPSTREAM_URL,
+    upstreamKey: parsed.AI_UPSTREAM_KEY,
+    timeoutMs: parsed.AI_TIMEOUT_MS,
   },
   app: {
-    minVersion: readEnv("APP_MIN_VERSION", "1.0.0"),
-    latestVersion: readEnv("APP_LATEST_VERSION", "1.0.0"),
-    updateUrl: readEnv("APP_UPDATE_URL"),
-    configJson: readEnv("APP_CONFIG_JSON"),
+    minVersion: parsed.APP_MIN_VERSION,
+    latestVersion: parsed.APP_LATEST_VERSION,
+    updateUrl: parsed.APP_UPDATE_URL,
+    configJson: parsed.APP_CONFIG_JSON,
   },
   analytics: {
-    mode: readEnv("ANALYTICS_MODE", "log"),
+    mode: parsed.ANALYTICS_MODE,
   },
   notifications: {
-    mode: readEnv("NOTIFICATIONS_MODE", "log"),
-    expoAccessToken: readEnv("EXPO_PUSH_ACCESS_TOKEN"),
-    expoPushUrl: readEnv("EXPO_PUSH_URL", "https://exp.host/--/api/v2/push/send"),
+    mode: parsed.NOTIFICATIONS_MODE,
+    expoAccessToken: parsed.EXPO_PUSH_ACCESS_TOKEN,
+    expoPushUrl: parsed.EXPO_PUSH_URL,
   },
   email: {
-    mode: readEnv("EMAIL_MODE", "log"),
-    defaultFrom: readEnv("EMAIL_DEFAULT_FROM", "no-reply@loveleaf.app"),
+    mode: parsed.EMAIL_MODE,
+    defaultFrom: parsed.EMAIL_DEFAULT_FROM,
   },
   billing: {
-    webhookSecret: readEnv("BILLING_WEBHOOK_SECRET"),
-    webhookSignatureHeader: readEnv("BILLING_WEBHOOK_SIGNATURE_HEADER", "authorization"),
-    webhookSignatureType: readEnv("BILLING_WEBHOOK_SIGNATURE_TYPE", "bearer"),
-    provider: readEnv("BILLING_PROVIDER", "default"),
-    proEntitlementId: readEnv("BILLING_PRO_ENTITLEMENT_ID", "pro"),
+    webhookSecret: parsed.BILLING_WEBHOOK_SECRET,
+    webhookSignatureHeader: parsed.BILLING_WEBHOOK_SIGNATURE_HEADER,
+    webhookSignatureType: parsed.BILLING_WEBHOOK_SIGNATURE_TYPE,
+    provider: parsed.BILLING_PROVIDER,
+    proEntitlementId: parsed.BILLING_PRO_ENTITLEMENT_ID,
   },
   entitlements: {
-    syncMode: readEnv("ENTITLEMENTS_SYNC_MODE", "client"),
+    syncMode: parsed.ENTITLEMENTS_SYNC_MODE,
   },
   auth: {
-    mode: readEnv("AUTH_MODE", "stub"),
-    jwksUrl: readEnv("AUTH_JWKS_URL"),
-    issuer: readEnv("AUTH_ISSUER"),
-    audience: readEnv("AUTH_AUDIENCE"),
+    mode: parsed.AUTH_MODE,
+    jwksUrl: parsed.AUTH_JWKS_URL,
+    issuer: parsed.AUTH_ISSUER,
+    audience: parsed.AUTH_AUDIENCE,
   },
   storage: {
-    mode: readEnv("STORAGE_MODE", "off"),
-    endpoint: readEnv("STORAGE_ENDPOINT"),
-    region: readEnv("STORAGE_REGION", "auto"),
-    bucket: readEnv("STORAGE_BUCKET"),
-    accessKey: readEnv("STORAGE_ACCESS_KEY"),
-    secretKey: readEnv("STORAGE_SECRET_KEY"),
-    publicBaseUrl: readEnv("STORAGE_PUBLIC_BASE_URL"),
+    mode: parsed.STORAGE_MODE,
+    endpoint: parsed.STORAGE_ENDPOINT,
+    region: parsed.STORAGE_REGION,
+    bucket: parsed.STORAGE_BUCKET,
+    accessKey: parsed.STORAGE_ACCESS_KEY,
+    secretKey: parsed.STORAGE_SECRET_KEY,
+    publicBaseUrl: parsed.STORAGE_PUBLIC_BASE_URL,
   },
 };
