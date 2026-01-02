@@ -1,6 +1,7 @@
 import { useSignIn, useSignUp } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import {
   ActivityIndicator,
   Alert,
@@ -19,6 +20,11 @@ import { defaultStyles } from "@/ui/theme/styles";
 
 type ClerkError = {
   errors?: { message?: string; code?: string }[];
+};
+
+type LoginFormValues = {
+  email: string;
+  code: string;
 };
 
 const fieldLabelMap: Record<string, string> = {
@@ -68,17 +74,29 @@ const LoginScreen = () => {
   const verticalOffset = Math.round(height * 0.12);
   const { signIn, setActive, isLoaded: signInLoaded } = useSignIn();
   const { signUp, setActive: setActiveSignUp, isLoaded: signUpLoaded } = useSignUp();
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm<LoginFormValues>({
+    defaultValues: { email: "", code: "" },
+    mode: "onChange",
+  });
 
-  const [emailAddress, setEmailAddress] = useState("");
-  const [code, setCode] = useState("");
   const [pendingVerification, setPendingVerification] = useState(false);
   const [flow, setFlow] = useState<"signIn" | "signUp" | null>(null);
   const [loading, setLoading] = useState(false);
   const [resendCooldown, setResendCooldown] = useState(0);
   const [signInEmailAddressId, setSignInEmailAddressId] = useState<string | null>(null);
-  const emailValue = emailAddress.trim();
+  const emailInput = useWatch({ control, name: "email" }) ?? "";
+  const codeInput = useWatch({ control, name: "code" }) ?? "";
+  const emailValue = emailInput.trim();
+  const codeValue = codeInput.trim();
   const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue);
-  const showEmailError = emailValue.length > 0 && !isEmailValid;
+  const isCodeValid = /^\d{6}$/.test(codeValue);
+  const emailError = errors.email?.message;
+  const codeError = errors.code?.message;
   const resendDisabled = resendCooldown > 0 || loading;
   const resendLabel =
     resendCooldown > 0
@@ -99,23 +117,23 @@ const LoginScreen = () => {
     return () => clearInterval(interval);
   }, [pendingVerification]);
 
-  const startEmailFlow = async () => {
+  const startEmailFlow = async ({ email }: LoginFormValues) => {
     if (!signInLoaded || !signUpLoaded || !signIn || !signUp) {
       return;
     }
     setSignInEmailAddressId(null);
-    const email = emailAddress.trim();
-    if (!email) {
+    const normalizedEmail = email.trim();
+    if (!normalizedEmail) {
       Alert.alert("Enter your email", "Please add an email address to continue.");
       return;
     }
-    if (!isEmailValid) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
       Alert.alert("Invalid email", "Enter a valid email address to continue.");
       return;
     }
     setLoading(true);
     try {
-      await signIn.create({ identifier: email });
+      await signIn.create({ identifier: normalizedEmail });
       const emailFactor = signIn.supportedFirstFactors?.find(
         (factor) => factor.strategy === "email_code",
       );
@@ -130,6 +148,7 @@ const LoginScreen = () => {
       setSignInEmailAddressId(emailAddressId);
       setFlow("signIn");
       setPendingVerification(true);
+      setValue("code", "");
     } catch (err) {
       const { message, code: errorCode } = getClerkError(err);
       const isNotFound =
@@ -140,7 +159,7 @@ const LoginScreen = () => {
         return;
       }
       try {
-        const result = await signUp.create({ emailAddress: email });
+        const result = await signUp.create({ emailAddress: normalizedEmail });
         const blockingFields = result.requiredFields?.filter((field) => field !== "email_address");
         if (blockingFields?.length) {
           const missing = formatFieldList(blockingFields);
@@ -157,6 +176,7 @@ const LoginScreen = () => {
         setFlow("signUp");
         setPendingVerification(true);
         setSignInEmailAddressId(null);
+        setValue("code", "");
       } catch (signUpErr) {
         const { message: signUpMessage } = getClerkError(signUpErr);
         Alert.alert("Sign up failed", signUpMessage ?? "Try again.");
@@ -170,7 +190,7 @@ const LoginScreen = () => {
     if (!pendingVerification || !flow) {
       return;
     }
-    const value = code.trim();
+    const value = codeValue;
     if (!value) {
       Alert.alert("Enter the code", "Check your email for the verification code.");
       return;
@@ -241,7 +261,7 @@ const LoginScreen = () => {
   const resetFlow = () => {
     setPendingVerification(false);
     setFlow(null);
-    setCode("");
+    setValue("code", "");
     setResendCooldown(0);
     setSignInEmailAddressId(null);
   };
@@ -299,16 +319,29 @@ const LoginScreen = () => {
           <View style={styles.form}>
             {pendingVerification ? (
               <>
-                <Text style={styles.subtitle}>
-                  Enter the 6-digit code we sent to {emailAddress}.
-                </Text>
-                <TextInput
-                  keyboardType="number-pad"
-                  placeholder="123456"
-                  value={code}
-                  onChangeText={setCode}
-                  style={styles.inputField}
+                <Text style={styles.subtitle}>Enter the 6-digit code we sent to {emailValue}.</Text>
+                <Controller
+                  control={control}
+                  name="code"
+                  rules={{
+                    validate: (value) => {
+                      if (!pendingVerification) return true;
+                      if (!value?.trim()) return "Enter the 6-digit code.";
+                      if (!/^\d{6}$/.test(value.trim())) return "Enter the 6-digit code.";
+                      return true;
+                    },
+                  }}
+                  render={({ field: { value, onChange } }) => (
+                    <TextInput
+                      keyboardType="number-pad"
+                      placeholder="123456"
+                      value={value}
+                      onChangeText={onChange}
+                      style={[styles.inputField, codeError && styles.inputFieldError]}
+                    />
+                  )}
                 />
+                {!!codeError && <Text style={styles.errorText}>{codeError}</Text>}
                 <View style={styles.resendRow}>
                   <Text style={styles.resendHint}>Didn’t get a code?</Text>
                   <TouchableOpacity disabled={resendDisabled} onPress={resendCode}>
@@ -324,23 +357,44 @@ const LoginScreen = () => {
                 </View>
               </>
             ) : (
-              <TextInput
-                autoCapitalize="none"
-                autoCorrect={false}
-                keyboardType="email-address"
-                placeholder="you@example.com"
-                value={emailAddress}
-                onChangeText={setEmailAddress}
-                style={[styles.inputField, showEmailError && styles.inputFieldError]}
+              <Controller
+                control={control}
+                name="email"
+                rules={{
+                  required: "Enter your email address.",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Enter a valid email address.",
+                  },
+                }}
+                render={({ field: { value, onChange } }) => (
+                  <TextInput
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    keyboardType="email-address"
+                    placeholder="you@example.com"
+                    value={value}
+                    onChangeText={onChange}
+                    style={[styles.inputField, emailError && styles.inputFieldError]}
+                  />
+                )}
               />
             )}
-            {!pendingVerification && showEmailError && (
-              <Text style={styles.errorText}>Enter a valid email address.</Text>
+            {!pendingVerification && !!emailError && (
+              <Text style={styles.errorText}>{emailError}</Text>
             )}
           </View>
           {pendingVerification ? (
             <>
-              <TouchableOpacity style={[defaultStyles.btn, styles.btnPrimary]} onPress={verifyCode}>
+              <TouchableOpacity
+                style={[
+                  defaultStyles.btn,
+                  styles.btnPrimary,
+                  !isCodeValid && styles.btnPrimaryDisabled,
+                ]}
+                onPress={handleSubmit(verifyCode)}
+                disabled={!isCodeValid || loading}
+              >
                 <Text style={styles.btnPrimaryText}>Verify code</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -357,8 +411,8 @@ const LoginScreen = () => {
                 styles.btnPrimary,
                 !isEmailValid && styles.btnPrimaryDisabled,
               ]}
-              onPress={startEmailFlow}
-              disabled={!isEmailValid}
+              onPress={handleSubmit(startEmailFlow)}
+              disabled={!isEmailValid || loading}
             >
               <Text style={styles.btnPrimaryText}>Continue</Text>
             </TouchableOpacity>

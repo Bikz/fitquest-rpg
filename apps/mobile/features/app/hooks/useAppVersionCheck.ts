@@ -1,6 +1,7 @@
 import type { AppVersionInfo } from "@loveleaf/types";
+import { useQuery } from "@tanstack/react-query";
 import Constants from "expo-constants";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 import { useMMKVString } from "react-native-mmkv";
 import { STORAGE_KEYS } from "@/data/storage/keys";
 import { storage } from "@/data/storage/kv";
@@ -26,36 +27,30 @@ const parseVersionInfo = (value?: string | null) => {
 const useAppVersionCheck = () => {
   const { request } = useApiRequest();
   const [stored] = useMMKVString(STORAGE_KEYS.appVersionInfo, storage);
-  const [info, setInfo] = useState<AppVersionInfo | null>(parseVersionInfo(stored));
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const cachedInfo = useMemo(() => parseVersionInfo(stored), [stored]);
 
-  useEffect(() => {
-    setInfo(parseVersionInfo(stored));
-  }, [stored]);
-
-  const refresh = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
+  const { data, error, isFetching, refetch } = useQuery({
+    queryKey: ["appVersionInfo"],
+    queryFn: async () => {
       const response = await fetchAppVersion(request);
       storage.set(STORAGE_KEYS.appVersionInfo, JSON.stringify(response));
-      setInfo(response);
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Failed to check version.";
-      setError(message);
-    } finally {
-      setLoading(false);
-    }
-  }, [request]);
+      return response;
+    },
+    initialData: stored ? (cachedInfo ?? undefined) : undefined,
+  });
 
-  useEffect(() => {
-    if (!stored) {
-      void refresh();
-    }
-  }, [refresh, stored]);
+  const refresh = useCallback(async () => {
+    await refetch();
+  }, [refetch]);
+
+  const errorMessage = error
+    ? error instanceof Error
+      ? error.message
+      : "Failed to check version."
+    : null;
 
   const currentVersion = getCurrentVersion();
+  const info = data ?? cachedInfo;
   const requiresUpdate = info ? compareVersions(currentVersion, info.minVersion) < 0 : false;
   const needsUpdate = info ? compareVersions(currentVersion, info.latestVersion) < 0 : false;
 
@@ -65,11 +60,11 @@ const useAppVersionCheck = () => {
       info,
       needsUpdate,
       requiresUpdate,
-      loading,
-      error,
+      loading: isFetching,
+      error: errorMessage,
       refresh,
     }),
-    [currentVersion, error, info, loading, needsUpdate, refresh, requiresUpdate],
+    [currentVersion, errorMessage, info, isFetching, needsUpdate, refresh, requiresUpdate],
   );
 };
 

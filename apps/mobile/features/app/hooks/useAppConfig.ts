@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useCallback, useMemo } from "react";
 import { useMMKVString } from "react-native-mmkv";
 import { STORAGE_KEYS } from "@/data/storage/keys";
 import { storage } from "@/data/storage/kv";
@@ -17,37 +18,38 @@ const parseConfig = (value?: string | null) => {
 const useAppConfig = () => {
   const { request } = useApiRequest();
   const [storedConfig] = useMMKVString(STORAGE_KEYS.appConfig, storage);
-  const [config, setConfig] = useState<Record<string, unknown>>(parseConfig(storedConfig));
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const cachedConfig = useMemo(() => parseConfig(storedConfig), [storedConfig]);
 
-  useEffect(() => {
-    setConfig(parseConfig(storedConfig));
-  }, [storedConfig]);
-
-  const refresh = useCallback(async () => {
-    setLoading(true);
-    setError(null);
-    try {
+  const { data, error, isFetching, refetch } = useQuery({
+    queryKey: ["appConfig"],
+    queryFn: async () => {
       const response = await fetchAppConfig(request);
       const value = JSON.stringify(response.config ?? {});
       storage.set(STORAGE_KEYS.appConfig, value);
-      setConfig(response.config ?? {});
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Failed to load config.";
-      setError(message);
-    } finally {
-      setLoading(false);
-    }
-  }, [request]);
+      return response.config ?? {};
+    },
+    initialData: storedConfig ? cachedConfig : undefined,
+  });
 
-  useEffect(() => {
-    if (!storedConfig) {
-      void refresh();
-    }
-  }, [refresh, storedConfig]);
+  const refresh = useCallback(async () => {
+    await refetch();
+  }, [refetch]);
 
-  return useMemo(() => ({ config, loading, error, refresh }), [config, error, loading, refresh]);
+  const errorMessage = error
+    ? error instanceof Error
+      ? error.message
+      : "Failed to load config."
+    : null;
+
+  return useMemo(
+    () => ({
+      config: data ?? cachedConfig,
+      loading: isFetching,
+      error: errorMessage,
+      refresh,
+    }),
+    [cachedConfig, data, errorMessage, isFetching, refresh],
+  );
 };
 
 export default useAppConfig;

@@ -13,6 +13,7 @@ import ErrorBoundary from "@/ui/components/ErrorBoundary";
 import OfflineBanner from "@/ui/components/OfflineBanner";
 import Colors from "@/ui/theme/colors";
 import "@/services/notifications/expo";
+import QueryProvider from "@/services/query/QueryProvider";
 
 function RootNavigationLayout() {
   const { authDataLoaded } = useAuthRouter();
@@ -69,7 +70,9 @@ const RootLayout = () => {
   return (
     <ClerkProvider tokenCache={tokenCache} publishableKey={env.clerkPublishableKey}>
       <ClerkLoaded>
-        <AppShell />
+        <QueryProvider>
+          <AppShell />
+        </QueryProvider>
       </ClerkLoaded>
     </ClerkProvider>
   );
