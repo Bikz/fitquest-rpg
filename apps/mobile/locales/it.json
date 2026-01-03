@@ -1,0 +1,153 @@
+{
+  "auth": {
+    "continueWithApple": "Continua con Apple",
+    "continueWithGoogle": "Continua con Google",
+    "continueWithEmail": "Continua con email",
+    "checkEmailTitle": "Controlla la tua email",
+    "continueWithEmailTitle": "Continua con email",
+    "emailCodeHint": "Inserisci il codice a 6 cifre inviato a {{email}}.",
+    "emailPlaceholder": "tuo@esempio.com",
+    "codePlaceholder": "123456",
+    "didntGetCode": "Non hai ricevuto il codice?",
+    "enterEmailTitle": "Inserisci la tua email",
+    "enterEmailBody": "Aggiungi un indirizzo email per continuare.",
+    "invalidEmailTitle": "Email non valida",
+    "invalidEmailBody": "Inserisci un'email valida per continuare.",
+    "emailCodeUnavailableTitle": "Codice email non disponibile",
+    "emailCodeUnavailableBody": "Nessun fattore di codice email disponibile per questo utente.",
+    "signInFailedTitle": "Accesso non riuscito",
+    "tryAgain": "Riprova.",
+    "signUpNeedsInfoTitle": "Serve più informazioni",
+    "signUpNeedsInfoBody": "Clerk richiede {{fields}} per completare la registrazione. Aggiorna i requisiti di registrazione di Clerk o raccogli questi campi nell'app.",
+    "signUpNeedsInfoBodyGeneric": "Clerk richiede più informazioni per completare la registrazione. Aggiorna i requisiti di registrazione di Clerk o raccogli campi aggiuntivi.",
+    "signUpFailedTitle": "Registrazione non riuscita",
+    "enterCodeTitle": "Inserisci il codice",
+    "enterCodeBody": "Controlla la tua email per il codice di verifica.",
+    "secondFactorTitle": "Secondo fattore richiesto",
+    "secondFactorBody": "Questo account richiede un secondo fattore per completare l'accesso.",
+    "passwordResetTitle": "Reimpostazione password richiesta",
+    "passwordResetBody": "Questo account deve reimpostare la password prima di accedere.",
+    "verificationIncompleteTitle": "Verifica incompleta",
+    "verificationIncompleteBody": "Riprova o richiedi un nuovo codice.",
+    "codeAlreadyUsedTitle": "Codice già utilizzato",
+    "codeAlreadyUsedBody": "Richiedi un nuovo codice e riprova.",
+    "verificationFailedTitle": "Verifica non riuscita",
+    "enterCodeValidation": "Inserisci il codice a 6 cifre.",
+    "resendCode": "Reinvia codice",
+    "resendIn": "Reinvia tra {{time}}",
+    "verifyCode": "Verifica codice",
+    "useDifferentEmail": "Usa un'altra email"
+  },
+  "common": {
+    "continue": "Continua"
+  },
+  "brand": {
+    "appName": "AppBase"
+  },
+  "tabs": {
+    "home": "Home",
+    "profile": "Profilo"
+  },
+  "onboarding": {
+    "page1": {
+      "title": "Benvenuto nella tua prossima app.",
+      "description": "Uno starter pulito con autenticazione, onboarding e billing pronti."
+    },
+    "page2": {
+      "title": "Costruisci velocemente.",
+      "description": "Funzionalità e servizi organizzati per scalare."
+    },
+    "page3": {
+      "title": "Rilascia con fiducia.",
+      "description": "Hook IA ed entitlements pronti per iterare velocemente."
+    },
+    "continue": "Continua",
+    "getStarted": "Inizia"
+  },
+  "home": {
+    "title": "AppBase",
+    "greeting": "Ciao {{name}}.",
+    "subtitle": "Il tuo template di base è pronto da personalizzare.",
+    "plan": "Piano",
+    "pro": "Pro",
+    "free": "Gratis",
+    "upgrade": "Passa a Pro",
+    "openChat": "Apri chat"
+  },
+  "settings": {
+    "account": "Account",
+    "logout": "Esci",
+    "notifications": "Notifiche",
+    "pushNotifications": "Notifiche push",
+    "notificationsDeviceRequired": "Richiede un dispositivo fisico",
+    "notificationsEnabled": "Attive",
+    "notificationsOff": "Disattivate",
+    "notificationsNotEnabled": "Non attive",
+    "notificationsManage": "Gestisci",
+    "notificationsEnable": "Abilita",
+    "app": "App",
+    "aboutApp": "Informazioni su {{appName}}",
+    "versionLabel": "Versione {{version}}",
+    "checking": "Verifica...",
+    "updateUnavailable": "Impossibile verificare aggiornamenti",
+    "updateRequired": "Aggiornamento richiesto",
+    "updateAvailable": "Aggiornamento disponibile",
+    "upToDate": "Aggiornata",
+    "update": "Aggiorna",
+    "check": "Verifica",
+    "remoteConfig": "Configurazione remota",
+    "refreshing": "Aggiornamento...",
+    "refreshFailed": "Aggiornamento fallito",
+    "configKeys": "{{count}} chiavi",
+    "refresh": "Aggiorna",
+    "terms": "Termini",
+    "privacy": "Privacy",
+    "testing": "Test",
+    "testProMode": "Modalità Pro di test",
+    "language": "Lingua",
+    "change": "Cambia"
+  },
+  "profile": {
+    "title": "Profilo",
+    "defaultName": "Utente app",
+    "upgrade": "Passa a Pro",
+    "manageSubscription": "Gestisci abbonamento",
+    "settings": "Impostazioni",
+    "logout": "Esci",
+    "deleteAccount": "Elimina account"
+  },
+  "upgrade": {
+    "title": "Fai crescere la tua app",
+    "subtitle": "Sblocca tutte le funzioni Pro per i tuoi utenti.",
+    "list": {
+      "unlimited": "Funzionalità illimitate",
+      "premium": "Contenuti premium",
+      "priority": "Supporto prioritario"
+    },
+    "price": "$2.99/mese con fatturazione annuale",
+    "trial": "Prova gratuita di 1 settimana",
+    "youArePro": "Sei Pro",
+    "processing": "Elaborazione...",
+    "startTrial": "Inizia prova gratuita",
+    "notNow": "Non ora",
+    "failedTitle": "Upgrade non riuscito",
+    "failedBody": "Riprova tra poco."
+  },
+  "deleteAccount": {
+    "title": "Elimina account",
+    "body": "Questo elimina i tuoi dati in modo permanente e non può essere annullato. Digita DELETE per confermare.",
+    "placeholder": "Digita DELETE per confermare",
+    "confirmValidation": "Digita DELETE per confermare.",
+    "deleteButton": "Elimina account",
+    "cancel": "Annulla",
+    "requestFailed": "Impossibile eliminare l'account."
+  },
+  "language": {
+    "title": "Lingua",
+    "choose": "Scegli la tua lingua"
+  },
+  "screens": {
+    "settings": "Impostazioni",
+    "upgrade": "Upgrade"
+  }
+}

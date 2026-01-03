@@ -41,6 +41,29 @@
   "common": {
     "continue": "続行"
   },
+  "brand": {
+    "appName": "AppBase"
+  },
+  "tabs": {
+    "home": "ホーム",
+    "profile": "プロフィール"
+  },
+  "onboarding": {
+    "page1": {
+      "title": "次のアプリへようこそ。",
+      "description": "認証、オンボーディング、課金が揃ったクリーンなスターター。"
+    },
+    "page2": {
+      "title": "高速に構築。",
+      "description": "機能とサービスはスケール向けに整理されています。"
+    },
+    "page3": {
+      "title": "自信を持ってリリース。",
+      "description": "AIフックとエンタイトルメントが素早い改善に備えています。"
+    },
+    "continue": "続行",
+    "getStarted": "始める"
+  },
   "home": {
     "title": "AppBase",
     "greeting": "{{name}}さん、こんにちは。",
@@ -50,5 +73,81 @@
     "free": "無料",
     "upgrade": "Proにアップグレード",
     "openChat": "チャットを開く"
+  },
+  "settings": {
+    "account": "アカウント",
+    "logout": "ログアウト",
+    "notifications": "通知",
+    "pushNotifications": "プッシュ通知",
+    "notificationsDeviceRequired": "実機が必要です",
+    "notificationsEnabled": "有効",
+    "notificationsOff": "オフ",
+    "notificationsNotEnabled": "未有効",
+    "notificationsManage": "管理",
+    "notificationsEnable": "有効にする",
+    "app": "アプリ",
+    "aboutApp": "{{appName}}について",
+    "versionLabel": "バージョン {{version}}",
+    "checking": "確認中...",
+    "updateUnavailable": "更新の確認ができません",
+    "updateRequired": "更新が必要です",
+    "updateAvailable": "更新があります",
+    "upToDate": "最新です",
+    "update": "更新",
+    "check": "確認",
+    "remoteConfig": "リモート設定",
+    "refreshing": "更新中...",
+    "refreshFailed": "更新に失敗しました",
+    "configKeys": "{{count}} 件のキー",
+    "refresh": "更新",
+    "terms": "利用規約",
+    "privacy": "プライバシー",
+    "testing": "テスト",
+    "testProMode": "Proテストモード",
+    "language": "言語",
+    "change": "変更"
+  },
+  "profile": {
+    "title": "プロフィール",
+    "defaultName": "アプリユーザー",
+    "upgrade": "Proにアップグレード",
+    "manageSubscription": "サブスクリプションを管理",
+    "settings": "設定",
+    "logout": "ログアウト",
+    "deleteAccount": "アカウント削除"
+  },
+  "upgrade": {
+    "title": "アプリを成長させよう",
+    "subtitle": "ユーザーのためにすべてのPro機能を解放します。",
+    "list": {
+      "unlimited": "無制限の機能",
+      "premium": "プレミアムコンテンツ",
+      "priority": "優先サポート"
+    },
+    "price": "月額$2.99（年払い）",
+    "trial": "1週間の無料トライアル",
+    "youArePro": "Proです",
+    "processing": "処理中...",
+    "startTrial": "無料トライアルを開始",
+    "notNow": "今はしない",
+    "failedTitle": "アップグレードに失敗しました",
+    "failedBody": "しばらくしてから再試行してください。"
+  },
+  "deleteAccount": {
+    "title": "アカウント削除",
+    "body": "これはデータを永久に削除し、元に戻せません。確認のためDELETEと入力してください。",
+    "placeholder": "DELETEと入力して確認",
+    "confirmValidation": "DELETEと入力して確認してください。",
+    "deleteButton": "アカウント削除",
+    "cancel": "キャンセル",
+    "requestFailed": "アカウントを削除できませんでした。"
+  },
+  "language": {
+    "title": "言語",
+    "choose": "言語を選択"
+  },
+  "screens": {
+    "settings": "設定",
+    "upgrade": "アップグレード"
   }
 }

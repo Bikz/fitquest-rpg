@@ -7,9 +7,12 @@ import de from "@/locales/de.json";
 import en from "@/locales/en.json";
 import es from "@/locales/es.json";
 import fr from "@/locales/fr.json";
+import it from "@/locales/it.json";
 import ja from "@/locales/ja.json";
 import ko from "@/locales/ko.json";
+import nl from "@/locales/nl.json";
 import ptBR from "@/locales/pt-BR.json";
+import zhHans from "@/locales/zh-Hans.json";
 
 const resources = {
   en: { translation: en },
@@ -17,8 +20,11 @@ const resources = {
   "pt-BR": { translation: ptBR },
   fr: { translation: fr },
   de: { translation: de },
+  it: { translation: it },
+  nl: { translation: nl },
   ja: { translation: ja },
   ko: { translation: ko },
+  "zh-Hans": { translation: zhHans },
 };
 
 export const SUPPORTED_LANGUAGES = [
@@ -27,8 +33,11 @@ export const SUPPORTED_LANGUAGES = [
   { code: "pt-BR", label: "Portugues (Brasil)" },
   { code: "fr", label: "Francais" },
   { code: "de", label: "Deutsch" },
+  { code: "it", label: "Italiano" },
+  { code: "nl", label: "Nederlands" },
   { code: "ja", label: "Japanese" },
   { code: "ko", label: "Korean" },
+  { code: "zh-Hans", label: "Chinese (Simplified)" },
 ];
 
 const DEFAULT_LANGUAGE = "en";
@@ -41,6 +50,9 @@ const normalizeLanguage = (value: string) => {
   const base = normalized.split("-")[0];
   if (base === "pt") {
     return "pt-BR";
+  }
+  if (base === "zh") {
+    return "zh-Hans";
   }
   if (base in resources) {
     return base as keyof typeof resources;

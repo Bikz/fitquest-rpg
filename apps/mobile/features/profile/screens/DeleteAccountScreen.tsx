@@ -2,6 +2,7 @@ import { useAuth, useUser } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
   StyleSheet,
@@ -24,6 +25,7 @@ const DeleteAccountScreen = () => {
   const { user } = useUser();
   const { request } = useApiRequest();
   const router = useRouter();
+  const { t } = useTranslation();
   const {
     control,
     handleSubmit,
@@ -46,7 +48,7 @@ const DeleteAccountScreen = () => {
     try {
       await deleteUserAccount(request);
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Unable to delete your account.";
+      const message = err instanceof Error ? err.message : t("deleteAccount.requestFailed");
       setRequestError(message);
       setLoading(false);
       return;
@@ -69,22 +71,21 @@ const DeleteAccountScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Delete account</Text>
-      <Text style={styles.body}>
-        This permanently deletes your data and cannot be undone. Type DELETE to confirm.
-      </Text>
+      <Text style={styles.title}>{t("deleteAccount.title")}</Text>
+      <Text style={styles.body}>{t("deleteAccount.body")}</Text>
 
       <Controller
         control={control}
         name="confirmation"
         rules={{
-          required: "Type DELETE to confirm.",
-          validate: (value) => value.trim().toLowerCase() === "delete" || "Type DELETE to confirm.",
+          required: t("deleteAccount.confirmValidation"),
+          validate: (value) =>
+            value.trim().toLowerCase() === "delete" || t("deleteAccount.confirmValidation"),
         }}
         render={({ field: { value, onChange } }) => (
           <TextInput
             style={[styles.input, errors.confirmation && styles.inputError]}
-            placeholder="Type DELETE to confirm"
+            placeholder={t("deleteAccount.placeholder")}
             placeholderTextColor={Colors.grey}
             value={value}
             onChangeText={onChange}
@@ -104,7 +105,7 @@ const DeleteAccountScreen = () => {
         {loading ? (
           <ActivityIndicator color="#fff" />
         ) : (
-          <Text style={styles.deleteButtonText}>Delete account</Text>
+          <Text style={styles.deleteButtonText}>{t("deleteAccount.deleteButton")}</Text>
         )}
       </TouchableOpacity>
 
@@ -113,7 +114,7 @@ const DeleteAccountScreen = () => {
         onPress={() => router.back()}
         disabled={loading}
       >
-        <Text style={styles.cancelButtonText}>Cancel</Text>
+        <Text style={styles.cancelButtonText}>{t("deleteAccount.cancel")}</Text>
       </TouchableOpacity>
     </View>
   );

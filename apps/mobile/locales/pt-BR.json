@@ -41,6 +41,29 @@
   "common": {
     "continue": "Continuar"
   },
+  "brand": {
+    "appName": "AppBase"
+  },
+  "tabs": {
+    "home": "Início",
+    "profile": "Perfil"
+  },
+  "onboarding": {
+    "page1": {
+      "title": "Bem-vindo ao seu próximo app.",
+      "description": "Um starter limpo com autenticação, onboarding e cobrança pronta."
+    },
+    "page2": {
+      "title": "Construa rápido.",
+      "description": "Funcionalidades e serviços organizados para escalar."
+    },
+    "page3": {
+      "title": "Publique com confiança.",
+      "description": "IA e entitlements prontos para iterar rápido."
+    },
+    "continue": "Continuar",
+    "getStarted": "Começar"
+  },
   "home": {
     "title": "AppBase",
     "greeting": "Olá {{name}}.",
@@ -50,5 +73,81 @@
     "free": "Grátis",
     "upgrade": "Fazer upgrade para Pro",
     "openChat": "Abrir chat"
+  },
+  "settings": {
+    "account": "Conta",
+    "logout": "Sair",
+    "notifications": "Notificações",
+    "pushNotifications": "Notificações push",
+    "notificationsDeviceRequired": "Requer um dispositivo físico",
+    "notificationsEnabled": "Ativadas",
+    "notificationsOff": "Desativadas",
+    "notificationsNotEnabled": "Não ativadas",
+    "notificationsManage": "Gerenciar",
+    "notificationsEnable": "Ativar",
+    "app": "Aplicativo",
+    "aboutApp": "Sobre {{appName}}",
+    "versionLabel": "Versão {{version}}",
+    "checking": "Verificando...",
+    "updateUnavailable": "Não foi possível verificar atualizações",
+    "updateRequired": "Atualização obrigatória",
+    "updateAvailable": "Atualização disponível",
+    "upToDate": "Atualizado",
+    "update": "Atualizar",
+    "check": "Verificar",
+    "remoteConfig": "Configuração remota",
+    "refreshing": "Atualizando...",
+    "refreshFailed": "Falha ao atualizar",
+    "configKeys": "{{count}} chaves",
+    "refresh": "Atualizar",
+    "terms": "Termos",
+    "privacy": "Privacidade",
+    "testing": "Testes",
+    "testProMode": "Modo Pro de teste",
+    "language": "Idioma",
+    "change": "Alterar"
+  },
+  "profile": {
+    "title": "Perfil",
+    "defaultName": "Usuário do app",
+    "upgrade": "Fazer upgrade para Pro",
+    "manageSubscription": "Gerenciar assinatura",
+    "settings": "Configurações",
+    "logout": "Sair",
+    "deleteAccount": "Excluir conta"
+  },
+  "upgrade": {
+    "title": "Deixe seu app crescer",
+    "subtitle": "Desbloqueie todos os recursos Pro para seus usuários.",
+    "list": {
+      "unlimited": "Recursos ilimitados",
+      "premium": "Conteúdo premium",
+      "priority": "Suporte prioritário"
+    },
+    "price": "$2.99/mês cobrado anualmente",
+    "trial": "1 semana de teste grátis",
+    "youArePro": "Você é Pro",
+    "processing": "Processando...",
+    "startTrial": "Iniciar teste grátis",
+    "notNow": "Agora não",
+    "failedTitle": "Falha ao atualizar",
+    "failedBody": "Tente novamente em instantes."
+  },
+  "deleteAccount": {
+    "title": "Excluir conta",
+    "body": "Isso exclui seus dados permanentemente e não pode ser desfeito. Digite DELETE para confirmar.",
+    "placeholder": "Digite DELETE para confirmar",
+    "confirmValidation": "Digite DELETE para confirmar.",
+    "deleteButton": "Excluir conta",
+    "cancel": "Cancelar",
+    "requestFailed": "Não foi possível excluir sua conta."
+  },
+  "language": {
+    "title": "Idioma",
+    "choose": "Escolha seu idioma"
+  },
+  "screens": {
+    "settings": "Configurações",
+    "upgrade": "Upgrade"
   }
 }

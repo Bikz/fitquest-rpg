@@ -41,6 +41,29 @@
   "common": {
     "continue": "Continuer"
   },
+  "brand": {
+    "appName": "AppBase"
+  },
+  "tabs": {
+    "home": "Accueil",
+    "profile": "Profil"
+  },
+  "onboarding": {
+    "page1": {
+      "title": "Bienvenue dans votre prochaine app.",
+      "description": "Un starter propre avec authentification, onboarding et facturation prêts."
+    },
+    "page2": {
+      "title": "Construisez vite.",
+      "description": "Fonctionnalités et services organisés pour passer à l'échelle."
+    },
+    "page3": {
+      "title": "Déployez en confiance.",
+      "description": "Les hooks IA et les entitlements sont prêts pour itérer rapidement."
+    },
+    "continue": "Continuer",
+    "getStarted": "Commencer"
+  },
   "home": {
     "title": "AppBase",
     "greeting": "Bonjour {{name}}.",
@@ -50,5 +73,81 @@
     "free": "Gratuit",
     "upgrade": "Passer à Pro",
     "openChat": "Ouvrir le chat"
+  },
+  "settings": {
+    "account": "Compte",
+    "logout": "Se déconnecter",
+    "notifications": "Notifications",
+    "pushNotifications": "Notifications push",
+    "notificationsDeviceRequired": "Nécessite un appareil physique",
+    "notificationsEnabled": "Activées",
+    "notificationsOff": "Désactivées",
+    "notificationsNotEnabled": "Non activées",
+    "notificationsManage": "Gérer",
+    "notificationsEnable": "Activer",
+    "app": "App",
+    "aboutApp": "À propos de {{appName}}",
+    "versionLabel": "Version {{version}}",
+    "checking": "Vérification...",
+    "updateUnavailable": "Impossible de vérifier les mises à jour",
+    "updateRequired": "Mise à jour requise",
+    "updateAvailable": "Mise à jour disponible",
+    "upToDate": "À jour",
+    "update": "Mettre à jour",
+    "check": "Vérifier",
+    "remoteConfig": "Configuration distante",
+    "refreshing": "Actualisation...",
+    "refreshFailed": "Échec de l’actualisation",
+    "configKeys": "{{count}} clés",
+    "refresh": "Actualiser",
+    "terms": "Conditions",
+    "privacy": "Confidentialité",
+    "testing": "Test",
+    "testProMode": "Mode Pro de test",
+    "language": "Langue",
+    "change": "Modifier"
+  },
+  "profile": {
+    "title": "Profil",
+    "defaultName": "Utilisateur de l'app",
+    "upgrade": "Passer à Pro",
+    "manageSubscription": "Gérer l'abonnement",
+    "settings": "Paramètres",
+    "logout": "Se déconnecter",
+    "deleteAccount": "Supprimer le compte"
+  },
+  "upgrade": {
+    "title": "Faites grandir votre app",
+    "subtitle": "Débloquez toutes les fonctionnalités Pro pour vos utilisateurs.",
+    "list": {
+      "unlimited": "Fonctionnalités illimitées",
+      "premium": "Contenu premium",
+      "priority": "Support prioritaire"
+    },
+    "price": "$2.99/mois facturé annuellement",
+    "trial": "Essai gratuit d'une semaine",
+    "youArePro": "Vous êtes Pro",
+    "processing": "Traitement...",
+    "startTrial": "Commencer l'essai gratuit",
+    "notNow": "Pas maintenant",
+    "failedTitle": "Échec de la mise à niveau",
+    "failedBody": "Veuillez réessayer bientôt."
+  },
+  "deleteAccount": {
+    "title": "Supprimer le compte",
+    "body": "Cela supprime définitivement vos données et ne peut pas être annulé. Tapez DELETE pour confirmer.",
+    "placeholder": "Tapez DELETE pour confirmer",
+    "confirmValidation": "Tapez DELETE pour confirmer.",
+    "deleteButton": "Supprimer le compte",
+    "cancel": "Annuler",
+    "requestFailed": "Impossible de supprimer votre compte."
+  },
+  "language": {
+    "title": "Langue",
+    "choose": "Choisissez votre langue"
+  },
+  "screens": {
+    "settings": "Paramètres",
+    "upgrade": "Mise à niveau"
   }
 }

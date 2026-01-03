@@ -41,6 +41,29 @@
   "common": {
     "continue": "Continue"
   },
+  "brand": {
+    "appName": "AppBase"
+  },
+  "tabs": {
+    "home": "Home",
+    "profile": "Profile"
+  },
+  "onboarding": {
+    "page1": {
+      "title": "Welcome to your next app.",
+      "description": "A clean starter with auth, onboarding, and billing ready."
+    },
+    "page2": {
+      "title": "Build fast.",
+      "description": "Features and services are organized for scale."
+    },
+    "page3": {
+      "title": "Ship confidently.",
+      "description": "AI hooks and entitlements are wired for quick iteration."
+    },
+    "continue": "Continue",
+    "getStarted": "Get started"
+  },
   "home": {
     "title": "AppBase",
     "greeting": "Hi {{name}}.",
@@ -50,5 +73,81 @@
     "free": "Free",
     "upgrade": "Upgrade to Pro",
     "openChat": "Open Chat"
+  },
+  "settings": {
+    "account": "Account",
+    "logout": "Log out",
+    "notifications": "Notifications",
+    "pushNotifications": "Push notifications",
+    "notificationsDeviceRequired": "Requires a physical device",
+    "notificationsEnabled": "Enabled",
+    "notificationsOff": "Off",
+    "notificationsNotEnabled": "Not enabled",
+    "notificationsManage": "Manage",
+    "notificationsEnable": "Enable",
+    "app": "App",
+    "aboutApp": "About {{appName}}",
+    "versionLabel": "Version {{version}}",
+    "checking": "Checking...",
+    "updateUnavailable": "Unable to check updates",
+    "updateRequired": "Update required",
+    "updateAvailable": "Update available",
+    "upToDate": "Up to date",
+    "update": "Update",
+    "check": "Check",
+    "remoteConfig": "Remote config",
+    "refreshing": "Refreshing...",
+    "refreshFailed": "Refresh failed",
+    "configKeys": "{{count}} keys",
+    "refresh": "Refresh",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "testing": "Testing",
+    "testProMode": "Test Pro Mode",
+    "language": "Language",
+    "change": "Change"
+  },
+  "profile": {
+    "title": "Profile",
+    "defaultName": "App User",
+    "upgrade": "Upgrade to Pro",
+    "manageSubscription": "Manage subscription",
+    "settings": "Settings",
+    "logout": "Log Out",
+    "deleteAccount": "Delete account"
+  },
+  "upgrade": {
+    "title": "Let your app grow",
+    "subtitle": "Unlock all pro features for your users.",
+    "list": {
+      "unlimited": "Unlimited features",
+      "premium": "Premium content",
+      "priority": "Priority support"
+    },
+    "price": "$2.99/month billed annually",
+    "trial": "1 week free trial",
+    "youArePro": "You're Pro",
+    "processing": "Processing...",
+    "startTrial": "Start free trial",
+    "notNow": "Not now",
+    "failedTitle": "Upgrade failed",
+    "failedBody": "Please try again shortly."
+  },
+  "deleteAccount": {
+    "title": "Delete account",
+    "body": "This permanently deletes your data and cannot be undone. Type DELETE to confirm.",
+    "placeholder": "Type DELETE to confirm",
+    "confirmValidation": "Type DELETE to confirm.",
+    "deleteButton": "Delete account",
+    "cancel": "Cancel",
+    "requestFailed": "Unable to delete your account."
+  },
+  "language": {
+    "title": "Language",
+    "choose": "Choose your language"
+  },
+  "screens": {
+    "settings": "Settings",
+    "upgrade": "Upgrade"
   }
 }

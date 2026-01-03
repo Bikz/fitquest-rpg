@@ -41,6 +41,29 @@
   "common": {
     "continue": "계속"
   },
+  "brand": {
+    "appName": "AppBase"
+  },
+  "tabs": {
+    "home": "홈",
+    "profile": "프로필"
+  },
+  "onboarding": {
+    "page1": {
+      "title": "다음 앱에 오신 것을 환영합니다.",
+      "description": "인증, 온보딩, 결제가 준비된 깔끔한 스타터."
+    },
+    "page2": {
+      "title": "빠르게 빌드하세요.",
+      "description": "기능과 서비스가 확장에 맞게 정리되어 있습니다."
+    },
+    "page3": {
+      "title": "자신 있게 출시하세요.",
+      "description": "AI 훅과 권한 설정이 빠른 반복을 위해 준비되어 있습니다."
+    },
+    "continue": "계속",
+    "getStarted": "시작하기"
+  },
   "home": {
     "title": "AppBase",
     "greeting": "{{name}}님 안녕하세요.",
@@ -50,5 +73,81 @@
     "free": "무료",
     "upgrade": "Pro로 업그레이드",
     "openChat": "채팅 열기"
+  },
+  "settings": {
+    "account": "계정",
+    "logout": "로그아웃",
+    "notifications": "알림",
+    "pushNotifications": "푸시 알림",
+    "notificationsDeviceRequired": "실제 기기가 필요합니다",
+    "notificationsEnabled": "사용 중",
+    "notificationsOff": "꺼짐",
+    "notificationsNotEnabled": "사용 안 함",
+    "notificationsManage": "관리",
+    "notificationsEnable": "사용",
+    "app": "앱",
+    "aboutApp": "{{appName}} 정보",
+    "versionLabel": "버전 {{version}}",
+    "checking": "확인 중...",
+    "updateUnavailable": "업데이트 확인 불가",
+    "updateRequired": "업데이트 필요",
+    "updateAvailable": "업데이트 있음",
+    "upToDate": "최신",
+    "update": "업데이트",
+    "check": "확인",
+    "remoteConfig": "원격 설정",
+    "refreshing": "새로고침 중...",
+    "refreshFailed": "새로고침 실패",
+    "configKeys": "{{count}}개 키",
+    "refresh": "새로고침",
+    "terms": "약관",
+    "privacy": "개인정보 처리방침",
+    "testing": "테스트",
+    "testProMode": "프로 테스트 모드",
+    "language": "언어",
+    "change": "변경"
+  },
+  "profile": {
+    "title": "프로필",
+    "defaultName": "앱 사용자",
+    "upgrade": "Pro로 업그레이드",
+    "manageSubscription": "구독 관리",
+    "settings": "설정",
+    "logout": "로그아웃",
+    "deleteAccount": "계정 삭제"
+  },
+  "upgrade": {
+    "title": "앱을 성장시키세요",
+    "subtitle": "사용자를 위해 모든 Pro 기능을 잠금 해제합니다.",
+    "list": {
+      "unlimited": "무제한 기능",
+      "premium": "프리미엄 콘텐츠",
+      "priority": "우선 지원"
+    },
+    "price": "$2.99/월 연간 청구",
+    "trial": "1주 무료 체험",
+    "youArePro": "이미 Pro입니다",
+    "processing": "처리 중...",
+    "startTrial": "무료 체험 시작",
+    "notNow": "나중에",
+    "failedTitle": "업그레이드 실패",
+    "failedBody": "잠시 후 다시 시도하세요."
+  },
+  "deleteAccount": {
+    "title": "계정 삭제",
+    "body": "데이터가 영구적으로 삭제되며 되돌릴 수 없습니다. 확인을 위해 DELETE를 입력하세요.",
+    "placeholder": "DELETE를 입력하여 확인",
+    "confirmValidation": "DELETE를 입력하여 확인하세요.",
+    "deleteButton": "계정 삭제",
+    "cancel": "취소",
+    "requestFailed": "계정을 삭제할 수 없습니다."
+  },
+  "language": {
+    "title": "언어",
+    "choose": "언어 선택"
+  },
+  "screens": {
+    "settings": "설정",
+    "upgrade": "업그레이드"
   }
 }

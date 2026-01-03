@@ -1,0 +1,153 @@
+{
+  "auth": {
+    "continueWithApple": "Ga verder met Apple",
+    "continueWithGoogle": "Ga verder met Google",
+    "continueWithEmail": "Ga verder met e-mail",
+    "checkEmailTitle": "Controleer je e-mail",
+    "continueWithEmailTitle": "Ga verder met e-mail",
+    "emailCodeHint": "Voer de 6-cijferige code in die we naar {{email}} hebben gestuurd.",
+    "emailPlaceholder": "jij@voorbeeld.com",
+    "codePlaceholder": "123456",
+    "didntGetCode": "Geen code ontvangen?",
+    "enterEmailTitle": "Voer je e-mailadres in",
+    "enterEmailBody": "Voeg een e-mailadres toe om door te gaan.",
+    "invalidEmailTitle": "Ongeldig e-mailadres",
+    "invalidEmailBody": "Voer een geldig e-mailadres in om door te gaan.",
+    "emailCodeUnavailableTitle": "E-mailcode niet beschikbaar",
+    "emailCodeUnavailableBody": "Er is geen e-mailcodefactor beschikbaar voor deze gebruiker.",
+    "signInFailedTitle": "Inloggen mislukt",
+    "tryAgain": "Probeer het opnieuw.",
+    "signUpNeedsInfoTitle": "Meer informatie nodig",
+    "signUpNeedsInfoBody": "Clerk vereist {{fields}} om de registratie te voltooien. Werk de Clerk-registratievereisten bij of verzamel deze velden in de app.",
+    "signUpNeedsInfoBodyGeneric": "Clerk vereist meer informatie om de registratie te voltooien. Werk de registratievereisten bij of verzamel extra velden.",
+    "signUpFailedTitle": "Registreren mislukt",
+    "enterCodeTitle": "Voer de code in",
+    "enterCodeBody": "Controleer je e-mail voor de verificatiecode.",
+    "secondFactorTitle": "Tweede factor vereist",
+    "secondFactorBody": "Dit account vereist een tweede factor om in te loggen.",
+    "passwordResetTitle": "Wachtwoordreset vereist",
+    "passwordResetBody": "Dit account moet het wachtwoord resetten voordat het kan inloggen.",
+    "verificationIncompleteTitle": "Verificatie onvolledig",
+    "verificationIncompleteBody": "Probeer opnieuw of vraag een nieuwe code aan.",
+    "codeAlreadyUsedTitle": "Code al gebruikt",
+    "codeAlreadyUsedBody": "Vraag een nieuwe code aan en probeer opnieuw.",
+    "verificationFailedTitle": "Verificatie mislukt",
+    "enterCodeValidation": "Voer de 6-cijferige code in.",
+    "resendCode": "Code opnieuw sturen",
+    "resendIn": "Opnieuw sturen over {{time}}",
+    "verifyCode": "Code verifiëren",
+    "useDifferentEmail": "Gebruik een ander e-mailadres"
+  },
+  "common": {
+    "continue": "Doorgaan"
+  },
+  "brand": {
+    "appName": "AppBase"
+  },
+  "tabs": {
+    "home": "Start",
+    "profile": "Profiel"
+  },
+  "onboarding": {
+    "page1": {
+      "title": "Welkom bij je volgende app.",
+      "description": "Een schone starter met auth, onboarding en billing."
+    },
+    "page2": {
+      "title": "Bouw snel.",
+      "description": "Functies en services zijn ingericht om te schalen."
+    },
+    "page3": {
+      "title": "Verzend met vertrouwen.",
+      "description": "AI-hooks en entitlements zijn klaar om snel te itereren."
+    },
+    "continue": "Doorgaan",
+    "getStarted": "Aan de slag"
+  },
+  "home": {
+    "title": "AppBase",
+    "greeting": "Hoi {{name}}.",
+    "subtitle": "Je basistemplate is klaar om aan te passen.",
+    "plan": "Plan",
+    "pro": "Pro",
+    "free": "Gratis",
+    "upgrade": "Upgrade naar Pro",
+    "openChat": "Chat openen"
+  },
+  "settings": {
+    "account": "Account",
+    "logout": "Uitloggen",
+    "notifications": "Meldingen",
+    "pushNotifications": "Pushmeldingen",
+    "notificationsDeviceRequired": "Vereist een fysiek apparaat",
+    "notificationsEnabled": "Ingeschakeld",
+    "notificationsOff": "Uit",
+    "notificationsNotEnabled": "Niet ingeschakeld",
+    "notificationsManage": "Beheren",
+    "notificationsEnable": "Inschakelen",
+    "app": "App",
+    "aboutApp": "Over {{appName}}",
+    "versionLabel": "Versie {{version}}",
+    "checking": "Controleren...",
+    "updateUnavailable": "Updates kunnen niet worden gecontroleerd",
+    "updateRequired": "Update vereist",
+    "updateAvailable": "Update beschikbaar",
+    "upToDate": "Up-to-date",
+    "update": "Bijwerken",
+    "check": "Controleren",
+    "remoteConfig": "Remote config",
+    "refreshing": "Vernieuwen...",
+    "refreshFailed": "Vernieuwen mislukt",
+    "configKeys": "{{count}} sleutels",
+    "refresh": "Vernieuwen",
+    "terms": "Voorwaarden",
+    "privacy": "Privacy",
+    "testing": "Testen",
+    "testProMode": "Pro-testmodus",
+    "language": "Taal",
+    "change": "Wijzigen"
+  },
+  "profile": {
+    "title": "Profiel",
+    "defaultName": "App-gebruiker",
+    "upgrade": "Upgrade naar Pro",
+    "manageSubscription": "Abonnement beheren",
+    "settings": "Instellingen",
+    "logout": "Uitloggen",
+    "deleteAccount": "Account verwijderen"
+  },
+  "upgrade": {
+    "title": "Laat je app groeien",
+    "subtitle": "Ontgrendel alle Pro-functies voor je gebruikers.",
+    "list": {
+      "unlimited": "Onbeperkte functies",
+      "premium": "Premium content",
+      "priority": "Prioriteitsondersteuning"
+    },
+    "price": "$2.99/maand jaarlijks gefactureerd",
+    "trial": "1 week gratis proefperiode",
+    "youArePro": "Je bent Pro",
+    "processing": "Bezig...",
+    "startTrial": "Gratis proefperiode starten",
+    "notNow": "Niet nu",
+    "failedTitle": "Upgrade mislukt",
+    "failedBody": "Probeer het straks opnieuw."
+  },
+  "deleteAccount": {
+    "title": "Account verwijderen",
+    "body": "Dit verwijdert je gegevens permanent en kan niet ongedaan worden gemaakt. Typ DELETE om te bevestigen.",
+    "placeholder": "Typ DELETE om te bevestigen",
+    "confirmValidation": "Typ DELETE om te bevestigen.",
+    "deleteButton": "Account verwijderen",
+    "cancel": "Annuleren",
+    "requestFailed": "Kon je account niet verwijderen."
+  },
+  "language": {
+    "title": "Taal",
+    "choose": "Kies je taal"
+  },
+  "screens": {
+    "settings": "Instellingen",
+    "upgrade": "Upgrade"
+  }
+}

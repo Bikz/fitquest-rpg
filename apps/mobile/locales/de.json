@@ -41,6 +41,29 @@
   "common": {
     "continue": "Weiter"
   },
+  "brand": {
+    "appName": "AppBase"
+  },
+  "tabs": {
+    "home": "Start",
+    "profile": "Profil"
+  },
+  "onboarding": {
+    "page1": {
+      "title": "Willkommen in deiner nächsten App.",
+      "description": "Ein schlanker Starter mit Auth, Onboarding und Billing."
+    },
+    "page2": {
+      "title": "Schnell bauen.",
+      "description": "Features und Services sind skalierbar organisiert."
+    },
+    "page3": {
+      "title": "Sicher veröffentlichen.",
+      "description": "KI-Hooks und Entitlements sind für schnelles Iterieren vorbereitet."
+    },
+    "continue": "Weiter",
+    "getStarted": "Los geht's"
+  },
   "home": {
     "title": "AppBase",
     "greeting": "Hallo {{name}}.",
@@ -50,5 +73,81 @@
     "free": "Kostenlos",
     "upgrade": "Auf Pro upgraden",
     "openChat": "Chat öffnen"
+  },
+  "settings": {
+    "account": "Konto",
+    "logout": "Abmelden",
+    "notifications": "Benachrichtigungen",
+    "pushNotifications": "Push-Benachrichtigungen",
+    "notificationsDeviceRequired": "Erfordert ein physisches Gerät",
+    "notificationsEnabled": "Aktiviert",
+    "notificationsOff": "Aus",
+    "notificationsNotEnabled": "Nicht aktiviert",
+    "notificationsManage": "Verwalten",
+    "notificationsEnable": "Aktivieren",
+    "app": "App",
+    "aboutApp": "Über {{appName}}",
+    "versionLabel": "Version {{version}}",
+    "checking": "Prüfen...",
+    "updateUnavailable": "Aktualisierungen konnten nicht geprüft werden",
+    "updateRequired": "Update erforderlich",
+    "updateAvailable": "Update verfügbar",
+    "upToDate": "Aktuell",
+    "update": "Aktualisieren",
+    "check": "Prüfen",
+    "remoteConfig": "Remote-Konfiguration",
+    "refreshing": "Aktualisieren...",
+    "refreshFailed": "Aktualisierung fehlgeschlagen",
+    "configKeys": "{{count}} Schlüssel",
+    "refresh": "Aktualisieren",
+    "terms": "Nutzungsbedingungen",
+    "privacy": "Datenschutz",
+    "testing": "Test",
+    "testProMode": "Pro-Testmodus",
+    "language": "Sprache",
+    "change": "Ändern"
+  },
+  "profile": {
+    "title": "Profil",
+    "defaultName": "App-Nutzer",
+    "upgrade": "Auf Pro upgraden",
+    "manageSubscription": "Abonnement verwalten",
+    "settings": "Einstellungen",
+    "logout": "Abmelden",
+    "deleteAccount": "Konto löschen"
+  },
+  "upgrade": {
+    "title": "Lass deine App wachsen",
+    "subtitle": "Schalte alle Pro-Funktionen für deine Nutzer frei.",
+    "list": {
+      "unlimited": "Unbegrenzte Funktionen",
+      "premium": "Premium-Inhalte",
+      "priority": "Priorisierter Support"
+    },
+    "price": "$2.99/Monat jährlich abgerechnet",
+    "trial": "1 Woche kostenloser Test",
+    "youArePro": "Du bist Pro",
+    "processing": "Wird verarbeitet...",
+    "startTrial": "Kostenlosen Test starten",
+    "notNow": "Nicht jetzt",
+    "failedTitle": "Upgrade fehlgeschlagen",
+    "failedBody": "Bitte versuche es gleich noch einmal."
+  },
+  "deleteAccount": {
+    "title": "Konto löschen",
+    "body": "Dies löscht deine Daten dauerhaft und kann nicht rückgängig gemacht werden. Tippe DELETE zur Bestätigung.",
+    "placeholder": "DELETE zur Bestätigung eingeben",
+    "confirmValidation": "DELETE zur Bestätigung eingeben.",
+    "deleteButton": "Konto löschen",
+    "cancel": "Abbrechen",
+    "requestFailed": "Dein Konto konnte nicht gelöscht werden."
+  },
+  "language": {
+    "title": "Sprache",
+    "choose": "Sprache auswählen"
+  },
+  "screens": {
+    "settings": "Einstellungen",
+    "upgrade": "Upgrade"
   }
 }

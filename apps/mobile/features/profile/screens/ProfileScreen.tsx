@@ -1,5 +1,6 @@
 import { useAuth, useUser } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useEntitlements } from "@/features/billing/hooks/useEntitlements";
 import { openManageSubscriptions } from "@/services/billing/revenuecat";
@@ -11,16 +12,18 @@ const ProfileScreen = () => {
   const { signOut } = useAuth();
   const { user } = useUser();
   const router = useRouter();
+  const { t } = useTranslation();
   const { isPro } = useEntitlements();
+  const displayName = user?.fullName || user?.firstName || t("profile.defaultName");
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Profile</Text>
-      <Text style={styles.name}>{user?.fullName || user?.firstName || "App User"}</Text>
+      <Text style={styles.title}>{t("profile.title")}</Text>
+      <Text style={styles.name}>{displayName}</Text>
       <Text style={styles.email}>{user?.primaryEmailAddress?.emailAddress}</Text>
 
       <GlassSurface style={styles.planBadge} glassEffectStyle="regular">
-        <Text style={styles.planBadgeText}>{isPro ? "Pro" : "Free"}</Text>
+        <Text style={styles.planBadgeText}>{isPro ? t("home.pro") : t("home.free")}</Text>
       </GlassSurface>
 
       {!isPro && (
@@ -28,7 +31,7 @@ const ProfileScreen = () => {
           style={[defaultStyles.btn, styles.primaryButton]}
           onPress={() => router.push("/(app)/upgrade")}
         >
-          <Text style={styles.primaryButtonText}>Upgrade to Pro</Text>
+          <Text style={styles.primaryButtonText}>{t("profile.upgrade")}</Text>
         </TouchableOpacity>
       )}
 
@@ -37,7 +40,7 @@ const ProfileScreen = () => {
           style={[defaultStyles.btn, styles.primaryButton]}
           onPress={() => void openManageSubscriptions()}
         >
-          <Text style={styles.primaryButtonText}>Manage subscription</Text>
+          <Text style={styles.primaryButtonText}>{t("profile.manageSubscription")}</Text>
         </TouchableOpacity>
       )}
 
@@ -45,18 +48,18 @@ const ProfileScreen = () => {
         style={[defaultStyles.btn, styles.secondaryButton]}
         onPress={() => router.push("/(app)/settings")}
       >
-        <Text style={styles.secondaryButtonText}>Settings</Text>
+        <Text style={styles.secondaryButtonText}>{t("profile.settings")}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={[defaultStyles.btn, styles.logoutButton]} onPress={() => signOut()}>
-        <Text style={styles.logoutButtonText}>Log Out</Text>
+        <Text style={styles.logoutButtonText}>{t("profile.logout")}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
         style={[defaultStyles.btn, styles.deleteButton]}
         onPress={() => router.push("/(app)/delete-account")}
       >
-        <Text style={styles.deleteButtonText}>Delete account</Text>
+        <Text style={styles.deleteButtonText}>{t("profile.deleteAccount")}</Text>
       </TouchableOpacity>
     </View>
   );

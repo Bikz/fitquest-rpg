@@ -1,5 +1,6 @@
 import { useRouter } from "expo-router";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { STORAGE_KEYS } from "@/data/storage/keys";
 import { storage } from "@/data/storage/kv";
@@ -16,6 +17,7 @@ import { defaultStyles } from "@/ui/theme/styles";
 const UpgradeScreen = () => {
   const router = useRouter();
   const { isPro } = useEntitlements();
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
 
   const handleUpgrade = async () => {
@@ -32,8 +34,8 @@ const UpgradeScreen = () => {
       setRcIsPro(getIsProFromCustomerInfo(result.customerInfo));
       router.replace("/(app)/(tabs)/home");
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Please try again shortly.";
-      Alert.alert("Upgrade failed", message);
+      const message = error instanceof Error ? error.message : t("upgrade.failedBody");
+      Alert.alert(t("upgrade.failedTitle"), message);
     } finally {
       setLoading(false);
     }
@@ -41,17 +43,17 @@ const UpgradeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Let your app grow</Text>
-      <Text style={styles.subtitle}>Unlock all pro features for your users.</Text>
+      <Text style={styles.title}>{t("upgrade.title")}</Text>
+      <Text style={styles.subtitle}>{t("upgrade.subtitle")}</Text>
 
       <View style={styles.list}>
-        <Text style={styles.listItem}>Unlimited features</Text>
-        <Text style={styles.listItem}>Premium content</Text>
-        <Text style={styles.listItem}>Priority support</Text>
+        <Text style={styles.listItem}>{t("upgrade.list.unlimited")}</Text>
+        <Text style={styles.listItem}>{t("upgrade.list.premium")}</Text>
+        <Text style={styles.listItem}>{t("upgrade.list.priority")}</Text>
       </View>
 
-      <Text style={styles.price}>$2.99/month billed annually</Text>
-      <Text style={styles.trial}>1 week free trial</Text>
+      <Text style={styles.price}>{t("upgrade.price")}</Text>
+      <Text style={styles.trial}>{t("upgrade.trial")}</Text>
 
       <TouchableOpacity
         style={[defaultStyles.btn, styles.primaryButton]}
@@ -59,12 +61,16 @@ const UpgradeScreen = () => {
         disabled={isPro || loading}
       >
         <Text style={styles.primaryButtonText}>
-          {isPro ? "You're Pro" : loading ? "Processing..." : "Start free trial"}
+          {isPro
+            ? t("upgrade.youArePro")
+            : loading
+              ? t("upgrade.processing")
+              : t("upgrade.startTrial")}
         </Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => router.back()}>
-        <Text style={styles.secondaryAction}>Not now</Text>
+        <Text style={styles.secondaryAction}>{t("upgrade.notNow")}</Text>
       </TouchableOpacity>
     </View>
   );

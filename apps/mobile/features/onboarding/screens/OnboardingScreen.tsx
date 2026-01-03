@@ -1,6 +1,7 @@
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import { useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Animated,
   Platform,
@@ -16,28 +17,35 @@ import { storage } from "@/data/storage/kv";
 import Colors from "@/ui/theme/colors";
 import { defaultStyles } from "@/ui/theme/styles";
 
-const PAGES = [
-  {
-    title: "Welcome to your next app.",
-    description: "A clean starter with auth, onboarding, and billing ready.",
-  },
-  {
-    title: "Build fast.",
-    description: "Features and services are organized for scale.",
-  },
-  {
-    title: "Ship confidently.",
-    description: "AI hooks and entitlements are wired for quick iteration.",
-  },
-];
-
 const OnboardingScreen = () => {
   const { width } = useWindowDimensions();
   const router = useRouter();
+  const { t } = useTranslation();
   const scrollRef = useRef<ScrollView>(null);
   const scrollX = useRef(new Animated.Value(0)).current;
   const lastIndexRef = useRef(0);
   const [index, setIndex] = useState(0);
+
+  const pages = useMemo(
+    () => [
+      {
+        key: "welcome",
+        title: t("onboarding.page1.title"),
+        description: t("onboarding.page1.description"),
+      },
+      {
+        key: "build",
+        title: t("onboarding.page2.title"),
+        description: t("onboarding.page2.description"),
+      },
+      {
+        key: "ship",
+        title: t("onboarding.page3.title"),
+        description: t("onboarding.page3.description"),
+      },
+    ],
+    [t],
+  );
 
   const triggerHaptic = () => {
     if (Platform.OS === "web" || typeof Haptics.selectionAsync !== "function") {
@@ -48,7 +56,7 @@ const OnboardingScreen = () => {
 
   const pageStyles = useMemo(
     () =>
-      PAGES.map((_, pageIndex) => {
+      pages.map((_, pageIndex) => {
         const inputRange = [(pageIndex - 1) * width, pageIndex * width, (pageIndex + 1) * width];
         return {
           opacity: scrollX.interpolate({
@@ -67,12 +75,12 @@ const OnboardingScreen = () => {
           ],
         };
       }),
-    [scrollX, width],
+    [pages, scrollX, width],
   );
 
   const handleContinue = () => {
     const nextIndex = index + 1;
-    if (nextIndex < PAGES.length) {
+    if (nextIndex < pages.length) {
       triggerHaptic();
       scrollRef.current?.scrollTo({ x: nextIndex * width, animated: true });
       setIndex(nextIndex);
@@ -102,8 +110,8 @@ const OnboardingScreen = () => {
           setIndex(nextIndex);
         }}
       >
-        {PAGES.map((item, pageIndex) => (
-          <View key={item.title} style={[styles.page, { width }]}>
+        {pages.map((item, pageIndex) => (
+          <View key={item.key} style={[styles.page, { width }]}>
             <Animated.View style={[styles.pageContent, pageStyles[pageIndex]]}>
               <Text style={styles.title}>{item.title}</Text>
               <Text style={styles.description}>{item.description}</Text>
@@ -113,11 +121,8 @@ const OnboardingScreen = () => {
       </Animated.ScrollView>
       <View style={styles.footer}>
         <View style={styles.dots}>
-          {PAGES.map((page, i) => (
-            <View
-              key={page.title}
-              style={[styles.dot, i === index ? styles.dotActive : undefined]}
-            />
+          {pages.map((page, i) => (
+            <View key={page.key} style={[styles.dot, i === index ? styles.dotActive : undefined]} />
           ))}
         </View>
         <TouchableOpacity
@@ -125,7 +130,7 @@ const OnboardingScreen = () => {
           onPress={handleContinue}
         >
           <Text style={styles.primaryButtonText}>
-            {index === PAGES.length - 1 ? "Get started" : "Continue"}
+            {index === pages.length - 1 ? t("onboarding.getStarted") : t("onboarding.continue")}
           </Text>
         </TouchableOpacity>
       </View>

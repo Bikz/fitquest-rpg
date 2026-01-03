@@ -1,0 +1,153 @@
+{
+  "auth": {
+    "continueWithApple": "继续使用 Apple",
+    "continueWithGoogle": "继续使用 Google",
+    "continueWithEmail": "继续使用邮箱",
+    "checkEmailTitle": "查看你的邮箱",
+    "continueWithEmailTitle": "继续使用邮箱",
+    "emailCodeHint": "请输入发送到 {{email}} 的 6 位验证码。",
+    "emailPlaceholder": "you@example.com",
+    "codePlaceholder": "123456",
+    "didntGetCode": "没有收到验证码？",
+    "enterEmailTitle": "输入你的邮箱",
+    "enterEmailBody": "请输入邮箱地址以继续。",
+    "invalidEmailTitle": "邮箱无效",
+    "invalidEmailBody": "请输入有效的邮箱地址以继续。",
+    "emailCodeUnavailableTitle": "邮箱验证码不可用",
+    "emailCodeUnavailableBody": "该用户没有可用的邮箱验证码方式。",
+    "signInFailedTitle": "登录失败",
+    "tryAgain": "请重试。",
+    "signUpNeedsInfoTitle": "需要更多信息",
+    "signUpNeedsInfoBody": "Clerk 需要 {{fields}} 才能完成注册。请更新 Clerk 注册要求或在应用中收集这些字段。",
+    "signUpNeedsInfoBodyGeneric": "Clerk 需要更多信息才能完成注册。请更新 Clerk 注册要求或收集额外字段。",
+    "signUpFailedTitle": "注册失败",
+    "enterCodeTitle": "输入验证码",
+    "enterCodeBody": "请查看邮箱获取验证码。",
+    "secondFactorTitle": "需要双重验证",
+    "secondFactorBody": "该账户需要第二验证方式才能完成登录。",
+    "passwordResetTitle": "需要重置密码",
+    "passwordResetBody": "该账户在登录前需要重置密码。",
+    "verificationIncompleteTitle": "验证未完成",
+    "verificationIncompleteBody": "请重试或请求新验证码。",
+    "codeAlreadyUsedTitle": "验证码已使用",
+    "codeAlreadyUsedBody": "请请求新验证码并重试。",
+    "verificationFailedTitle": "验证失败",
+    "enterCodeValidation": "请输入 6 位验证码。",
+    "resendCode": "重新发送验证码",
+    "resendIn": "{{time}} 后可重新发送",
+    "verifyCode": "验证验证码",
+    "useDifferentEmail": "使用其他邮箱"
+  },
+  "common": {
+    "continue": "继续"
+  },
+  "brand": {
+    "appName": "AppBase"
+  },
+  "tabs": {
+    "home": "首页",
+    "profile": "个人"
+  },
+  "onboarding": {
+    "page1": {
+      "title": "欢迎使用你的下一款应用。",
+      "description": "整洁的起步模板，已准备好登录、引导和计费。"
+    },
+    "page2": {
+      "title": "快速构建。",
+      "description": "功能和服务按规模组织。"
+    },
+    "page3": {
+      "title": "自信发布。",
+      "description": "AI 钩子与权益配置已就绪，便于快速迭代。"
+    },
+    "continue": "继续",
+    "getStarted": "开始使用"
+  },
+  "home": {
+    "title": "AppBase",
+    "greeting": "你好 {{name}}。",
+    "subtitle": "你的基础模板已准备好进行定制。",
+    "plan": "方案",
+    "pro": "专业版",
+    "free": "免费版",
+    "upgrade": "升级到专业版",
+    "openChat": "打开聊天"
+  },
+  "settings": {
+    "account": "账户",
+    "logout": "退出登录",
+    "notifications": "通知",
+    "pushNotifications": "推送通知",
+    "notificationsDeviceRequired": "需要真机",
+    "notificationsEnabled": "已开启",
+    "notificationsOff": "已关闭",
+    "notificationsNotEnabled": "未开启",
+    "notificationsManage": "管理",
+    "notificationsEnable": "开启",
+    "app": "应用",
+    "aboutApp": "关于 {{appName}}",
+    "versionLabel": "版本 {{version}}",
+    "checking": "检查中...",
+    "updateUnavailable": "无法检查更新",
+    "updateRequired": "需要更新",
+    "updateAvailable": "有可用更新",
+    "upToDate": "已是最新",
+    "update": "更新",
+    "check": "检查",
+    "remoteConfig": "远程配置",
+    "refreshing": "刷新中...",
+    "refreshFailed": "刷新失败",
+    "configKeys": "{{count}} 个键",
+    "refresh": "刷新",
+    "terms": "条款",
+    "privacy": "隐私",
+    "testing": "测试",
+    "testProMode": "测试专业版模式",
+    "language": "语言",
+    "change": "更改"
+  },
+  "profile": {
+    "title": "个人",
+    "defaultName": "应用用户",
+    "upgrade": "升级到专业版",
+    "manageSubscription": "管理订阅",
+    "settings": "设置",
+    "logout": "退出登录",
+    "deleteAccount": "删除账户"
+  },
+  "upgrade": {
+    "title": "让你的应用成长",
+    "subtitle": "为用户解锁所有专业功能。",
+    "list": {
+      "unlimited": "无限功能",
+      "premium": "高级内容",
+      "priority": "优先支持"
+    },
+    "price": "$2.99/月，按年计费",
+    "trial": "1 周免费试用",
+    "youArePro": "你已是专业版",
+    "processing": "处理中...",
+    "startTrial": "开始免费试用",
+    "notNow": "稍后再说",
+    "failedTitle": "升级失败",
+    "failedBody": "请稍后重试。"
+  },
+  "deleteAccount": {
+    "title": "删除账户",
+    "body": "这将永久删除你的数据且无法撤销。请输入 DELETE 以确认。",
+    "placeholder": "请输入 DELETE 以确认",
+    "confirmValidation": "请输入 DELETE 以确认。",
+    "deleteButton": "删除账户",
+    "cancel": "取消",
+    "requestFailed": "无法删除你的账户。"
+  },
+  "language": {
+    "title": "语言",
+    "choose": "选择你的语言"
+  },
+  "screens": {
+    "settings": "设置",
+    "upgrade": "升级"
+  }
+}

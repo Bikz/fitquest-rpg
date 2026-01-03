@@ -1,6 +1,7 @@
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Icon, Label, NativeTabs, VectorIcon } from "expo-router/unstable-native-tabs";
 import type { ComponentProps } from "react";
+import { useTranslation } from "react-i18next";
 import { DynamicColorIOS, Platform } from "react-native";
 import type { SFSymbol } from "sf-symbols-typescript";
 import Colors from "@/ui/theme/colors";
@@ -24,17 +25,18 @@ const tabIcon = (sfDefault: SFSymbol, sfSelected: SFSymbol, androidName: Materia
 };
 
 const TabsLayout = () => {
+  const { t } = useTranslation();
   return (
     <NativeTabs
       tintColor={Platform.OS === "ios" ? iosTint : Colors.dark}
       labelStyle={Platform.OS === "ios" ? { color: iosTint } : undefined}
     >
       <NativeTabs.Trigger name="home">
-        <Label>Home</Label>
+        <Label>{t("tabs.home")}</Label>
         {tabIcon("house", "house.fill", "home")}
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="profile">
-        <Label>Profile</Label>
+        <Label>{t("tabs.profile")}</Label>
         {tabIcon("person", "person.fill", "person")}
       </NativeTabs.Trigger>
     </NativeTabs>
