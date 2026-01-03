@@ -29,15 +29,15 @@ const resources = {
 
 export const SUPPORTED_LANGUAGES = [
   { code: "en", label: "English" },
-  { code: "es", label: "Espanol" },
-  { code: "pt-BR", label: "Portugues (Brasil)" },
-  { code: "fr", label: "Francais" },
+  { code: "es", label: "Español" },
+  { code: "pt-BR", label: "Português (Brasil)" },
+  { code: "fr", label: "Français" },
   { code: "de", label: "Deutsch" },
   { code: "it", label: "Italiano" },
   { code: "nl", label: "Nederlands" },
-  { code: "ja", label: "Japanese" },
-  { code: "ko", label: "Korean" },
-  { code: "zh-Hans", label: "Chinese (Simplified)" },
+  { code: "ja", label: "日本語" },
+  { code: "ko", label: "한국어" },
+  { code: "zh-Hans", label: "简体中文" },
 ];
 
 const DEFAULT_LANGUAGE = "en";
