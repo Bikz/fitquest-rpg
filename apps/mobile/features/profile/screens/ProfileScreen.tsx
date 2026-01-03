@@ -20,7 +20,7 @@ const ProfileScreen = () => {
   const displayName = user?.fullName || user?.firstName || t("profile.defaultName");
 
   const handleSignOut = () => {
-    storage.delete(STORAGE_KEYS.devAuthBypass);
+    storage.remove(STORAGE_KEYS.devAuthBypass);
     return signOut();
   };
 

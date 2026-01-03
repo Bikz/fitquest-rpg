@@ -51,7 +51,7 @@ const SettingsScreen = () => {
   } = usePushNotifications();
 
   const handleSignOut = () => {
-    storage.delete(STORAGE_KEYS.devAuthBypass);
+    storage.remove(STORAGE_KEYS.devAuthBypass);
     return signOut();
   };
 

@@ -65,7 +65,7 @@ const DeleteAccountScreen = () => {
     }
 
     try {
-      storage.delete(STORAGE_KEYS.devAuthBypass);
+      storage.remove(STORAGE_KEYS.devAuthBypass);
       await signOut();
     } finally {
       router.replace("/");
