@@ -3,6 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { FEATURES } from "@/config/features";
 import { useEntitlements } from "@/features/billing/hooks/useEntitlements";
 import GlassSurface from "@/ui/components/GlassSurface";
@@ -17,7 +18,7 @@ const HomeScreen = () => {
   const displayName = user?.firstName || user?.fullName || "there";
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top"]}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>{t("home.title")}</Text>
         <TouchableOpacity
@@ -54,7 +55,7 @@ const HomeScreen = () => {
           </TouchableOpacity>
         )}
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.light,
     paddingHorizontal: 24,
-    paddingTop: 20,
+    paddingTop: 12,
   },
   header: {
     flexDirection: "row",

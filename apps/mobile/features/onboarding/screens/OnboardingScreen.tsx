@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import {
   Animated,
   Platform,
+  SafeAreaView,
   type ScrollView,
   StyleSheet,
   Text,
@@ -91,7 +92,7 @@ const OnboardingScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top"]}>
       <Animated.ScrollView
         ref={scrollRef}
         horizontal
@@ -134,7 +135,7 @@ const OnboardingScreen = () => {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -142,6 +143,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.light,
+    paddingTop: 12,
   },
   page: {
     flex: 1,

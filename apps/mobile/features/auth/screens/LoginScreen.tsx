@@ -307,6 +307,9 @@ const LoginScreen = () => {
     }
   };
 
+  const submitEmail = handleSubmit(startEmailFlow);
+  const submitCode = handleSubmit(verifyCode);
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -345,6 +348,9 @@ const LoginScreen = () => {
                     <TextInput
                       keyboardType="number-pad"
                       placeholder={t("auth.codePlaceholder")}
+                      textContentType="oneTimeCode"
+                      returnKeyType="done"
+                      onSubmitEditing={submitCode}
                       value={value}
                       onChangeText={onChange}
                       style={[styles.inputField, codeError && styles.inputFieldError]}
@@ -383,6 +389,9 @@ const LoginScreen = () => {
                     autoCorrect={false}
                     keyboardType="email-address"
                     placeholder={t("auth.emailPlaceholder")}
+                    textContentType="emailAddress"
+                    returnKeyType="done"
+                    onSubmitEditing={submitEmail}
                     value={value}
                     onChangeText={onChange}
                     style={[styles.inputField, emailError && styles.inputFieldError]}

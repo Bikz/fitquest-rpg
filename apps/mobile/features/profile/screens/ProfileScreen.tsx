@@ -1,7 +1,8 @@
 import { useAuth, useUser } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { STORAGE_KEYS } from "@/data/storage/keys";
 import { storage } from "@/data/storage/kv";
 import { useEntitlements } from "@/features/billing/hooks/useEntitlements";
@@ -24,7 +25,7 @@ const ProfileScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top"]}>
       <Text style={styles.title}>{t("profile.title")}</Text>
       <Text style={styles.name}>{displayName}</Text>
       <Text style={styles.email}>{user?.primaryEmailAddress?.emailAddress}</Text>
@@ -68,7 +69,7 @@ const ProfileScreen = () => {
       >
         <Text style={styles.deleteButtonText}>{t("profile.deleteAccount")}</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -76,7 +77,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.light,
-    padding: 24,
+    paddingHorizontal: 24,
+    paddingTop: 12,
+    paddingBottom: 24,
   },
   title: {
     fontSize: 28,

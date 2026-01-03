@@ -1,14 +1,15 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import AnimatedIntro from "@/features/auth/components/AnimatedIntro";
 import BottomLoginSheet from "@/features/auth/components/BottomLoginSheet";
 import Colors from "@/ui/theme/colors";
 
 const WelcomeScreen = () => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top"]}>
       <AnimatedIntro />
       <BottomLoginSheet />
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -16,6 +17,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.light,
+    paddingTop: 12,
   },
 });
 
