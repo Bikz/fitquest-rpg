@@ -16,6 +16,7 @@ Cross-platform mobile template with auth, onboarding, billing, AI hooks, and an 
 - Native tabs layout (liquid glass on iOS 26+)
 - Glass surfaces via `expo-glass-effect` (see `ui/components/GlassSurface.tsx`)
 - Expo push notifications (register from Settings)
+- Optional Sentry error monitoring + dev-only auth bypass flag
 
 ## Setup
 
@@ -27,6 +28,8 @@ EXPO_PUBLIC_REVENUECAT_IOS_API_KEY=
 EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY=
 EXPO_PUBLIC_API_BASE_URL=
 EXPO_PUBLIC_FEATURE_CHAT=false
+EXPO_PUBLIC_FEATURE_DEV_AUTH_BYPASS=false
+EXPO_PUBLIC_SENTRY_DSN=
 ```
 
 Run locally:

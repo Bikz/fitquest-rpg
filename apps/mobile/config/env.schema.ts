@@ -7,8 +7,10 @@ const envSchema = z.object({
     .min(1, "EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY is required."),
   EXPO_PUBLIC_API_BASE_URL: z.string().url("EXPO_PUBLIC_API_BASE_URL must be a valid URL."),
   EXPO_PUBLIC_FEATURE_CHAT: z.enum(["true", "false"]).default("false"),
+  EXPO_PUBLIC_FEATURE_DEV_AUTH_BYPASS: z.enum(["true", "false"]).default("false"),
   EXPO_PUBLIC_REVENUECAT_IOS_API_KEY: z.string().optional(),
   EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY: z.string().optional(),
+  EXPO_PUBLIC_SENTRY_DSN: z.string().url().optional().or(z.literal("")),
 });
 
 export type MobileEnv = z.infer<typeof envSchema>;

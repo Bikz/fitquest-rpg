@@ -36,7 +36,8 @@
     "resendCode": "コードを再送信",
     "resendIn": "{{time}}後に再送信",
     "verifyCode": "コードを確認",
-    "useDifferentEmail": "別のメールを使用"
+    "useDifferentEmail": "別のメールを使用",
+    "devBypass": "ログインなしで続行 (dev)"
   },
   "common": {
     "continue": "続行"

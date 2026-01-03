@@ -11,6 +11,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { STORAGE_KEYS } from "@/data/storage/keys";
+import { storage } from "@/data/storage/kv";
 import { useApiRequest } from "@/services/api/client";
 import { deleteUserAccount } from "@/services/api/user";
 import Colors from "@/ui/theme/colors";
@@ -63,6 +65,7 @@ const DeleteAccountScreen = () => {
     }
 
     try {
+      storage.delete(STORAGE_KEYS.devAuthBypass);
       await signOut();
     } finally {
       router.replace("/");

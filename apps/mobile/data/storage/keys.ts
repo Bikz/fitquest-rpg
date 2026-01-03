@@ -5,4 +5,5 @@ export const STORAGE_KEYS = {
   appConfig: "appConfig",
   appVersionInfo: "appVersionInfo",
   appLanguage: "appLanguage",
+  devAuthBypass: "devAuthBypass",
 } as const;

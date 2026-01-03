@@ -16,6 +16,9 @@ import {
   useWindowDimensions,
   View,
 } from "react-native";
+import { FEATURES } from "@/config/features";
+import { STORAGE_KEYS } from "@/data/storage/keys";
+import { storage } from "@/data/storage/kv";
 import Colors from "@/ui/theme/colors";
 import { defaultStyles } from "@/ui/theme/styles";
 
@@ -108,6 +111,13 @@ const LoginScreen = () => {
           ).padStart(2, "0")}`,
         })
       : t("auth.resendCode");
+
+  const handleDevBypass = () => {
+    if (!FEATURES.devAuthBypass) return;
+    storage.set(STORAGE_KEYS.devAuthBypass, true);
+    storage.set(STORAGE_KEYS.onboardingComplete, true);
+    router.replace("/(app)/(tabs)/home");
+  };
 
   useEffect(() => {
     if (!pendingVerification) {
@@ -417,6 +427,11 @@ const LoginScreen = () => {
               <Text style={styles.btnPrimaryText}>{t("common.continue")}</Text>
             </TouchableOpacity>
           )}
+          {FEATURES.devAuthBypass && (
+            <TouchableOpacity style={styles.devBypassButton} onPress={handleDevBypass}>
+              <Text style={styles.devBypassText}>{t("auth.devBypass")}</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     </KeyboardAvoidingView>
@@ -525,6 +540,14 @@ const styles = StyleSheet.create({
     color: Colors.dark,
     fontSize: 16,
     fontWeight: "600",
+  },
+  devBypassButton: {
+    marginTop: 8,
+    alignItems: "center",
+  },
+  devBypassText: {
+    color: Colors.grey,
+    fontSize: 12,
   },
 });
 

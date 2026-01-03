@@ -50,6 +50,11 @@ const SettingsScreen = () => {
     openSettings: openPushSettings,
   } = usePushNotifications();
 
+  const handleSignOut = () => {
+    storage.delete(STORAGE_KEYS.devAuthBypass);
+    return signOut();
+  };
+
   const handleAboutPress = () => {
     const nextCount = tapCount + 1;
     setTapCount(nextCount);
@@ -114,7 +119,7 @@ const SettingsScreen = () => {
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>{t("settings.account")}</Text>
-        <TouchableOpacity style={styles.row} onPress={() => signOut()}>
+        <TouchableOpacity style={styles.row} onPress={handleSignOut}>
           <Text style={styles.rowText}>{t("settings.logout")}</Text>
         </TouchableOpacity>
       </View>

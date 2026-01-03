@@ -25,8 +25,10 @@ const env = parseEnv({
   EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY,
   EXPO_PUBLIC_API_BASE_URL: process.env.EXPO_PUBLIC_API_BASE_URL,
   EXPO_PUBLIC_FEATURE_CHAT: process.env.EXPO_PUBLIC_FEATURE_CHAT,
+  EXPO_PUBLIC_FEATURE_DEV_AUTH_BYPASS: process.env.EXPO_PUBLIC_FEATURE_DEV_AUTH_BYPASS,
   EXPO_PUBLIC_REVENUECAT_IOS_API_KEY: process.env.EXPO_PUBLIC_REVENUECAT_IOS_API_KEY,
   EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY: process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY,
+  EXPO_PUBLIC_SENTRY_DSN: process.env.EXPO_PUBLIC_SENTRY_DSN,
 });
 
 const envSuffix = env.EXPO_PUBLIC_APP_ENV === "production" ? "" : env.EXPO_PUBLIC_APP_ENV;
@@ -75,6 +77,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   plugins: [
     "expo-router",
     "expo-secure-store",
+    "sentry-expo",
     [
       "expo-build-properties",
       {

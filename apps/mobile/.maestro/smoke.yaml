@@ -1,3 +1,14 @@
 appId: com.loveleaf.appbase
 ---
-- launchApp
+- launchApp:
+    clearState: true
+- assertVisible: "Welcome to your next app."
+- tapOn: "Continue"
+- tapOn: "Continue"
+- tapOn: "Get started"
+- assertVisible: "Continue with email"
+- tapOn: "Continue with email"
+- assertVisible: "Continue with email"
+# Requires EXPO_PUBLIC_FEATURE_DEV_AUTH_BYPASS=true in dev builds.
+- tapOn: "Continue without login (dev)"
+- assertVisible: "AppBase"

@@ -36,7 +36,8 @@
     "resendCode": "Reinvia codice",
     "resendIn": "Reinvia tra {{time}}",
     "verifyCode": "Verifica codice",
-    "useDifferentEmail": "Usa un'altra email"
+    "useDifferentEmail": "Usa un'altra email",
+    "devBypass": "Continua senza accesso (dev)"
   },
   "common": {
     "continue": "Continua"

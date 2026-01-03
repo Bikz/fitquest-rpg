@@ -36,7 +36,8 @@
     "resendCode": "Code opnieuw sturen",
     "resendIn": "Opnieuw sturen over {{time}}",
     "verifyCode": "Code verifiëren",
-    "useDifferentEmail": "Gebruik een ander e-mailadres"
+    "useDifferentEmail": "Gebruik een ander e-mailadres",
+    "devBypass": "Doorgaan zonder inloggen (dev)"
   },
   "common": {
     "continue": "Doorgaan"

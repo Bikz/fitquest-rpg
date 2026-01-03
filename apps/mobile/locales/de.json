@@ -36,7 +36,8 @@
     "resendCode": "Code erneut senden",
     "resendIn": "Erneut senden in {{time}}",
     "verifyCode": "Code bestätigen",
-    "useDifferentEmail": "Andere E-Mail verwenden"
+    "useDifferentEmail": "Andere E-Mail verwenden",
+    "devBypass": "Ohne Anmeldung fortfahren (dev)"
   },
   "common": {
     "continue": "Weiter"

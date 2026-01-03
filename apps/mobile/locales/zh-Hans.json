@@ -36,7 +36,8 @@
     "resendCode": "重新发送验证码",
     "resendIn": "{{time}} 后可重新发送",
     "verifyCode": "验证验证码",
-    "useDifferentEmail": "使用其他邮箱"
+    "useDifferentEmail": "使用其他邮箱",
+    "devBypass": "无需登录继续 (dev)"
   },
   "common": {
     "continue": "继续"

@@ -2,6 +2,7 @@ import { useUser } from "@clerk/clerk-expo";
 import { useEffect, useRef } from "react";
 import { ApiRequestError, useApiRequest } from "@/services/api/client";
 import { configureTelemetry, setUserContext } from "./index";
+import { captureSentryError, initSentry, setSentryUser } from "./sentry";
 
 const useInitTelemetry = () => {
   const { request } = useApiRequest();
@@ -9,6 +10,7 @@ const useInitTelemetry = () => {
   const userIdRef = useRef<string | null>(null);
 
   useEffect(() => {
+    initSentry();
     configureTelemetry({
       trackEvent: async (event) => {
         const userId = userIdRef.current;
@@ -34,6 +36,7 @@ const useInitTelemetry = () => {
         }
       },
       captureError: async (error, context) => {
+        captureSentryError(error, context);
         const userId = userIdRef.current;
         try {
           await request("/analytics", {
@@ -64,6 +67,7 @@ const useInitTelemetry = () => {
       },
       setUser: (userId) => {
         userIdRef.current = userId ?? null;
+        setSentryUser(userId);
       },
     });
   }, [request]);

@@ -2,6 +2,8 @@ import { useAuth, useUser } from "@clerk/clerk-expo";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { STORAGE_KEYS } from "@/data/storage/keys";
+import { storage } from "@/data/storage/kv";
 import { useEntitlements } from "@/features/billing/hooks/useEntitlements";
 import { openManageSubscriptions } from "@/services/billing/revenuecat";
 import GlassSurface from "@/ui/components/GlassSurface";
@@ -15,6 +17,11 @@ const ProfileScreen = () => {
   const { t } = useTranslation();
   const { isPro } = useEntitlements();
   const displayName = user?.fullName || user?.firstName || t("profile.defaultName");
+
+  const handleSignOut = () => {
+    storage.delete(STORAGE_KEYS.devAuthBypass);
+    return signOut();
+  };
 
   return (
     <View style={styles.container}>
@@ -51,7 +58,7 @@ const ProfileScreen = () => {
         <Text style={styles.secondaryButtonText}>{t("profile.settings")}</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={[defaultStyles.btn, styles.logoutButton]} onPress={() => signOut()}>
+      <TouchableOpacity style={[defaultStyles.btn, styles.logoutButton]} onPress={handleSignOut}>
         <Text style={styles.logoutButtonText}>{t("profile.logout")}</Text>
       </TouchableOpacity>
 
