@@ -1,81 +1,75 @@
-# Loveleaf Monorepo
+# Loveleaf App Template
 
-Monorepo with a reusable mobile app base template and shared packages.
+Production-ready monorepo starter for building Expo mobile apps with a Hono API backend.
+Includes auth, onboarding, billing, i18n, quality tooling, and a ready-to-extend project structure.
+
+## Stack
+
+- Expo SDK 54 + Expo Router
+- Hono backend (Bun runtime)
+- Clerk auth (email code and OAuth)
+- RevenueCat billing
+- TanStack Query + React Hook Form + Zod
+- i18next localization
+- MMKV + SQLite for local persistence
+- Biome + TypeScript + Turbo + Knip
+- Maestro E2E + Jest unit tests
+- Husky + lint-staged
+- Optional Sentry error monitoring
+
+## Features
+
+- Onboarding flow with animations and haptics
+- Email code auth + OAuth (Apple/Google)
+- Billing paywall + entitlements
+- Remote config + version check
+- Optional chat feature
+- Offline banner + network status hooks
+- File upload helper (picker -> presign -> upload)
+- Expo push notifications
 
 ## Structure
 
-- `apps/mobile` – mobile app template (onboarding, auth, billing, AI, optional chat)
-- `apps/backend` – Hono API template (AI proxy, webhooks, notifications, analytics stubs)
-- `packages/types` – shared types for API contracts
-- `packages/config` – shared lint/format/tsconfig presets
+- `apps/mobile` - mobile app template
+- `apps/backend` - Hono API template
+- `packages/types` - shared API types
+- `packages/config` - shared lint/format/tsconfig presets
 
 ## Getting Started
 
 ```bash
 bun install
-bun run dev
+bun run dev:all
 ```
 
 ## Requirements
 
-- Node 24.x (avoid Node 25 for now)
+- Node 24.x
 - Bun
-
-Mobile app targets Expo SDK 54. See `apps/mobile/README.md` for liquid glass notes.
-Tooling presets live in `packages/config`, and shared API types live in `packages/types`.
-
-## Mobile Scripts
-
-```bash
-bun run mobile:start
-bun run mobile:android
-bun run mobile:ios
-bun run mobile:web
-```
-
-## Backend Scripts
-
-```bash
-bun run backend:dev
-bun run backend:start
-bun run backend:migrate
-bun run backend:lint
-```
-
-## Lint & Format
-
-```bash
-bun run lint
-bun run format
-bun run format:check
-```
-
-## Tooling
-
-- `biome.json` defines formatting + linting.
-- `turbo.json` is included if you want task caching later.
-
-## Release Checklist
-
-```bash
-bun run release:check
-```
 
 ## Environment
 
-Create `apps/mobile/.env` with keys for auth, billing, and AI:
+### Mobile
+
+Create `apps/mobile/.env` (or `.env.development`, `.env.staging`, `.env.production`):
 
 ```
+EXPO_PUBLIC_APP_ENV=development
 EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY=
 EXPO_PUBLIC_REVENUECAT_IOS_API_KEY=
 EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY=
 EXPO_PUBLIC_API_BASE_URL=
 EXPO_PUBLIC_FEATURE_CHAT=false
+EXPO_PUBLIC_FEATURE_DEV_AUTH_BYPASS=false
+EXPO_PUBLIC_SENTRY_DSN=
 ```
 
-Point `EXPO_PUBLIC_API_BASE_URL` at your backend, for example `http://localhost:8787`.
+`EXPO_PUBLIC_FEATURE_DEV_AUTH_BYPASS` exposes a dev-only bypass button for E2E.
+Set `EXPO_PUBLIC_SENTRY_DSN` to enable Sentry.
 
-Create `apps/backend/.env` for API configuration:
+### Backend
+
+Create `apps/backend/.env`:
 
 ```
 PORT=8787
@@ -119,21 +113,46 @@ Run migrations after configuring the database:
 bun run backend:migrate
 ```
 
-`AUTH_MODE=stub` trusts `x-user-id` from the client for local dev. Use `AUTH_MODE=jwt` with `AUTH_JWKS_URL`, `AUTH_ISSUER`, and `AUTH_AUDIENCE` in production.
+Notes:
+- `AUTH_MODE=stub` trusts `x-user-id` for local dev. Use `AUTH_MODE=jwt` in production.
+- Set `STORAGE_MODE=s3` with S3-compatible credentials to enable presigned uploads.
+- Set `ENTITLEMENTS_SYNC_MODE=server` and configure billing webhooks for production.
 
-Set `STORAGE_MODE=s3` with S3-compatible credentials (R2 works) to enable presigned uploads.
-Set `ENTITLEMENTS_SYNC_MODE=server` and configure webhook signature env vars for production billing.
+## Scripts
 
-## Template Utilities
+Mobile:
+```bash
+bun run mobile:start
+bun run mobile:android
+bun run mobile:ios
+bun run mobile:web
+```
 
-- Global error boundary + telemetry hooks
-- Offline banner + network status hook
-- Remote config + version check hooks
-- File upload helper (picker → presign → upload)
-- Expo push registration (optional)
+Backend:
+```bash
+bun run backend:dev
+bun run backend:start
+bun run backend:migrate
+bun run backend:lint
+```
 
-## Chat Feature
+## Quality
 
-The chat feature lives in `apps/mobile/features/chat` and its routes live under `apps/mobile/app/(chat)`.
-Set `EXPO_PUBLIC_FEATURE_CHAT=true` to enable chat routes and navigation entry points.
-# App-Starter-expo-hono-clerk
+```bash
+bun run lint
+bun run typecheck
+bun run knip
+bun run test
+```
+
+E2E (Maestro):
+```bash
+bun run mobile:e2e
+```
+
+Maestro requires a Java runtime (Temurin recommended) for the CLI.
+
+## Tooling Notes
+
+- `biome.json` defines formatting and linting.
+- `turbo.json` is included if you want task caching later.
