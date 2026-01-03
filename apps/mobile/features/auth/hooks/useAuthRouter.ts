@@ -10,6 +10,10 @@ const useAuthRouter = () => {
   const { isLoaded: authDataLoaded, isSignedIn } = useAuth();
   const [hasOnboarded] = useMMKVBoolean(STORAGE_KEYS.onboardingComplete, storage);
   const [devAuthBypass] = useMMKVBoolean(STORAGE_KEYS.devAuthBypass, storage);
+  const hasOnboardedResolved =
+    hasOnboarded ?? storage.getBoolean(STORAGE_KEYS.onboardingComplete) ?? false;
+  const devAuthBypassResolved =
+    devAuthBypass ?? storage.getBoolean(STORAGE_KEYS.devAuthBypass) ?? false;
 
   const segments = useSegments();
   const router = useRouter();
@@ -17,14 +21,14 @@ const useAuthRouter = () => {
   useEffect(() => {
     if (!authDataLoaded) return;
 
-    const isAuthenticated = isSignedIn || (FEATURES.devAuthBypass && Boolean(devAuthBypass));
+    const isAuthenticated = isSignedIn || (FEATURES.devAuthBypass && devAuthBypassResolved);
     const root = segments[0] ?? "";
     const inAppGroup = root === "(app)";
     const inChatGroup = root === "(chat)";
     const inAuthGroup = root === "(auth)";
     const inOnboarding = root === "onboarding";
 
-    if (!isAuthenticated && !hasOnboarded && !inOnboarding && !inAuthGroup) {
+    if (!isAuthenticated && !hasOnboardedResolved && !inOnboarding && !inAuthGroup) {
       router.replace("/onboarding");
       return;
     }
@@ -37,7 +41,7 @@ const useAuthRouter = () => {
     if (isAuthenticated && !inAppGroup && !inChatGroup) {
       router.replace("/(app)/(tabs)/home");
     }
-  }, [authDataLoaded, devAuthBypass, hasOnboarded, isSignedIn, router, segments]);
+  }, [authDataLoaded, devAuthBypassResolved, hasOnboardedResolved, isSignedIn, router, segments]);
 
   return { authDataLoaded, isSignedIn };
 };
